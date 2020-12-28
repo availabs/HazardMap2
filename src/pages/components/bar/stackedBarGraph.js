@@ -104,7 +104,7 @@ class StackedBarGraph extends React.Component{
                         data={this.props.data_type !== 'fema' ? this.processData() : this.processFemaData() }
                         keys={[this.props.hazard]}
                         indexBy="year"
-                        margin={{ top: 40, right: 70, bottom: 20, left: 10 }}
+                        margin={{ top: 40, right: 70, bottom: 30, left: 10 }}
                         padding={0.1}
                         colors={(d) => hazardcolors[d.id]}
                         enableLabel={false}
