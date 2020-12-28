@@ -15,7 +15,9 @@ module.exports = {
         cyan: colors.cyan
       },
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Proxima Nova W01', ...defaultTheme.fontFamily.sans],
+        serif: [...defaultTheme.fontFamily.serif],
+        mono: [...defaultTheme.fontFamily.mono]
       },
       gridTemplateColumns: {
         '13': 'repeat(13, minmax(0, 1fr))',
