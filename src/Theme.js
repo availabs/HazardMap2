@@ -192,4 +192,34 @@ const TEST_THEME_BASE = {
     $compositions
 }
 
-export default composeTheme(TEST_THEME_BASE)
+const compose = (themeType, theme) => {
+    const [base, ...rest] = themeType.split(/(?<!^)(?=[A-Z])/);
+    if (!theme.$compositions) return theme[base] || "";
+    if (!theme.$compositions[base]) return theme[base] || "";
+
+    return theme.$compositions[base].reduce((a, c) => {
+        let option = c.$default || "";
+        for (const opt of rest) {
+            if (opt in c) {
+                option = c[opt];
+            }
+        }
+        a.push(option);
+        return a;
+    }, []).filter(Boolean).join(" ");
+}
+
+
+
+const handler = {
+    get: (theme, definition, receiver) => {
+        if (!(definition in theme)) {
+            theme[definition] = compose(definition, theme);
+        }
+        return theme[definition];
+    }
+}
+
+export default new Proxy(TEST_THEME_BASE, handler);
+
+//export default composeTheme(TEST_THEME_BASE)
