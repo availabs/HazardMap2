@@ -120,7 +120,7 @@ class NationalLanding extends React.Component {
 
     render() {
         return (
-            <div className='flex flex-col lg:flex-row h-screen box-border w-full -mt-4 overflow-hidden'>
+            <div className='flex flex-col lg:flex-row h-screen box-border w-full -mt-4 fixed overflow-hidden'>
                 <div className='flex-auto h-full order-last lg:order-none'>
                     <div className='h-full'>
                         <div className="mx-auto h-8 w-2/6 pt-6 z-40">
