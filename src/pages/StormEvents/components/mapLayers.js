@@ -43,18 +43,19 @@ export const MapStyles = [{
                 "layout": {},
                 "paint": {
                     "fill-color": "hsl(0, 3%, 94%)",
+                    'fill-opacity': [
+                        'case',
+                        ['boolean', ['feature-state', 'hover'], false],
+                        0.1,
+                        1
+                    ],
                     /*"fill-opacity": [
                         "case",
                         ["boolean", ["feature-state", "hover"], false],
                         0,
                         1
                     ],
-                    "fill-outline-color": [
-                        "case",
-                        ["boolean", ["feature-state", "hover"], false],
-                        "rgba(0,0,0,100)",//"hsl(0, 0%, 100%)",
-                        "rgba(0,0,0,0)"
-                    ],*/
+                    ,*/
                 }
             },
             {

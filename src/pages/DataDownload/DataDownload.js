@@ -278,7 +278,14 @@ class DataDownload extends React.Component{
         }
     }
 
-    async processData(){
+    processData(){
+        let data = []
+        let data_set = this.state.geolevel !== 'zip_codes' ?
+            this.state.dataset === 'fema' ? `fema.disasters` : this.state.dataset :
+            this.state.dataset === 'fema' ? `fema.disasters.byZip` : this.state.dataset
+        let user_hazards = this.state.user_hazards
+        let falcorCache = this.props.falcorCache
+        let fetchedData = get(falcorCache,data_set,null)
         let attributes = this.state.dataset === 'severeWeather' ? ['total_damage', 'num_episodes','property_damage','crop_damage','num_episodes','num_events'] :
             this.state.dataset === 'fema' ? [
                 'ia_ihp_amount',
@@ -295,14 +302,7 @@ class DataDownload extends React.Component{
                 "total_cost_summaries",
                 "total_disasters"
             ] : ['total_loss','loan_total','num_loans']
-        let data = []
-        let data_set = this.state.geolevel !== 'zip_codes' ?
-            this.state.dataset === 'fema' ? `fema.disasters` : this.state.dataset :
-            this.state.dataset === 'fema' ? `fema.disasters.byZip` : this.state.dataset
-        let user_hazards = this.state.user_hazards
-        let falcorCache = await this.props.falcorCache
-        if(data_set !== 'sba' && hazards.length ){
-            let fetchedData = get(falcorCache,data_set,{})
+        if(data_set !== 'sba' && hazards.length && fetchedData){
             Object.keys(fetchedData).filter(d => d!== '$__path').forEach(geo =>{
                 user_hazards.forEach(hazard =>{
                     let d = get(fetchedData[geo],[hazard],{})
@@ -326,7 +326,7 @@ class DataDownload extends React.Component{
                 })
             })
         }
-        if(data_set === 'sba' && hazards.length){
+        if(data_set === 'sba' && hazards.length && fetchedData){
             let fetchedData = this.state.geolevel === 'zip_codes' ?
                 get(falcorCache,[data_set,'all','byZip'],{}) :
                 get(falcorCache,[data_set,'all'],{})
@@ -353,7 +353,7 @@ class DataDownload extends React.Component{
             })
 
         }
-
+        console.log('data',data)
         return data
     }
 

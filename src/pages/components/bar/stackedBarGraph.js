@@ -164,7 +164,6 @@ class StackedBarGraph extends React.Component{
 const mapDispatchToProps = { };
 
 const mapStateToProps = (state,ownProps) => {
-    console.log('state',state)
     return {
         falcorCache: state.falcorCache,
         geoid:ownProps.geoid,

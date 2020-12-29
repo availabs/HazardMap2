@@ -317,24 +317,31 @@ export default (props = {}) =>
             layers: ['counties'],
             dataFunc: function(d) {
                 let map = this.map
-                map.on('mousemove', 'county-boundaries', () =>{
-                    map.setPaintProperty(
-                        'county-boundaries',
-                        'line-color',
-                        ["case",
-                            ["==", ['get', 'county_fips'], d[0].properties.county_fips || null],
-                            'rgba(0,0,0,100)',
-                            'rgba(0,0,0,0)'
-                        ]
-                    );
-                })
-                map.on('mouseleave', 'county-boundaries', () => {
-                    map.setPaintProperty(
-                        'county-boundaries',
-                        'line-color',
-                        'rgba(0,0,0,0)'
-                    );
-                })
+                let hoveredCountyId = null
+                map.on('mousemove', 'counties', function (e) {
+                    if (e.features.length > 0) {
+                        if (hoveredCountyId) {
+                            map.setFeatureState(
+                                { source: 'albersusa', id: hoveredCountyId, sourceLayer: 'counties' },
+                                { hover: false }
+                            );
+                        }
+                        hoveredCountyId = e.features[0].id
+                        map.setFeatureState(
+                            { source: 'albersusa', id: hoveredCountyId,sourceLayer: 'counties' },
+                            { hover: true }
+                        )
+                    }
+                });
+                map.on('mouseleave', 'counties', function () {
+                    if (hoveredCountyId) {
+                        map.setFeatureState(
+                            { source: 'albersusa', id: hoveredCountyId,sourceLayer: 'counties' },
+                            { hover: false }
+                        );
+                    }
+
+                });
             }
         },
         showAttributesModal: false,
