@@ -2,19 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-import { API_HOST, PROJECT_THEME } from 'config'
+import { API_HOST } from 'config'
 import { AUTH_HOST, PROJECT_NAME, CLIENT_HOST } from 'config'
+
 import { falcorGraph } from 'store/falcorGraphNew'
 import { FalcorProvider } from 'utils/redux-falcor-new'
-import get from "lodash.get"
+
 
 import { Provider } from 'react-redux';
 import store from 'store';
 import {
-  Themes,
-  //FalcorProvider,
+  //Themes,
   ThemeContext,
-  //falcorGraph,
+  // FalcorProvider,
+  // falcorGraph,
   addComponents,
   addWrappers
 } from "@availabs/avl-components"
@@ -46,8 +47,7 @@ ReactDOM.render(
    	<Provider store={ store }>
   		<FalcorProvider falcor={ falcorGraph }>
         <ThemeContext.Provider value={ Theme }>
-  	    	{ /*<App />*/ }
-          <AuthEnabledApp />
+  	    	<AuthEnabledApp />
         </ThemeContext.Provider>
       </FalcorProvider>
   	</Provider>

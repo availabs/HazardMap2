@@ -271,7 +271,7 @@ export default [
         path: '/maps/stormevents',
         mainNav: true,
         exact: true,
-        name: 'Storm Events',
+        name: 'NCEI Storm Events',
         authed:false,
         component:withRouter(ConnectedComponent),
         layoutSettings: {
@@ -285,7 +285,7 @@ export default [
         path: '/maps/sba',
         mainNav: true,
         exact: true,
-        name: 'SBA',
+        name: 'SBA Hazard Loans',
         authed:false,
         component:withRouter(ConnectedComponent),
         layoutSettings: {
@@ -299,7 +299,7 @@ export default [
         path: '/maps/fema',
         mainNav: true,
         exact: true,
-        name: 'fema',
+        name: 'FEMA Disasters',
         authed:false,
         component:withRouter(ConnectedComponent),
         layoutSettings: {
@@ -310,5 +310,5 @@ export default [
         }
     }
 
-    ]
+]
 

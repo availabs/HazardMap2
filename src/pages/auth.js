@@ -1,4 +1,4 @@
-import PageHeader from "./landing/components/PageHeader"
+//import PageHeader from "./landing/components/PageHeader"
 
 const AuthConfig = {
   type: "ams-manager",
@@ -7,7 +7,7 @@ const AuthConfig = {
     "ams-router"
   ],
   children: [
-    { type: PageHeader },
+    //{ type: PageHeader },
     { type: "ams-login" },
     { type: "ams-reset-password" },
     { type: "ams-logout",

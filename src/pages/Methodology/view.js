@@ -5,19 +5,23 @@ import PageView from './components/PageView'
 
 let config = {
     type: "dms-manager", // top level component for managing data items
-    wrappers: [
+      wrappers: [
+        "dms-manager",
         "dms-provider",
         "dms-falcor",
-    ],
-    props: {
+        "dms-router"
+      ],
+      props: {
         format: ctpDoc,
         title: " ",
         className: 'h-full',
         noHeader: true
-    },
-    children: [
-        PageView
-    ]
+      },
+      children: [
+        { type: PageView,
+          dmsAction: "view"
+        },
+      ]
 }
 
 export default config
