@@ -15,7 +15,7 @@ module.exports = {
         cyan: colors.cyan
       },
       fontFamily: {
-        sans: ['Proxima Nova W10', ...defaultTheme.fontFamily.sans],
+        sans: ['Proxima Nova W01', ...defaultTheme.fontFamily.sans],
         serif: [...defaultTheme.fontFamily.serif],
         mono: [...defaultTheme.fontFamily.mono]
       },
