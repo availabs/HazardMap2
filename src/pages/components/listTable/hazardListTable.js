@@ -176,7 +176,7 @@ class HazardListTable extends React.Component{
                     <table className="min-w-full">
                         <thead>
                         <tr>
-                            <th className="px-3  py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase ">
+                            <th className="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase ">
                                 Hazard
                             </th>
                             {config[this.props.data_type].table_header.map((header,i) =>{
@@ -209,10 +209,9 @@ class HazardListTable extends React.Component{
                                 return(
                                     <tr className={`bg-white  ${this.props.activeHazard === hazard.value ? 'border-b-2 border-blue-500' : 'border-b border-gray-200' }` }
                                         key={i} id={hazard.value}>
-                                        <td className="px-4 py-2 whitespace-no-wrap text-md leading-5 font-base text-gray-900" key={i}>
+                                        <td className="px-4 py-2 whitespace-nowrap text-md leading-5 font-base text-gray-900" key={i}>
                                             <div
                                                 className="hover:text-blue-600 cursor-pointer"
-
                                                 onClick={(e) =>{
                                                     e.persist()
                                                     if(this.state.currentHazard !== hazard.value){
