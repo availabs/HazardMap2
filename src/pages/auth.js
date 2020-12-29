@@ -1,4 +1,4 @@
-import PageHeader from "./landing/components/PageHeader"
+//import PageHeader from "./landing/components/PageHeader"
 
 const AuthConfig = {
   type: "ams-manager",
