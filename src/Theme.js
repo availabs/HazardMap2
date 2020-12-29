@@ -38,7 +38,7 @@ const light_base = {
     navMenu: 'h-full relative',
     navMenuOpen: 'bg-blue-600 text-white shadow w-56 rounded-t-lg',
     navMenuBg: 'bg-blue-600 bb-rounded-10 shadow-lg text-white rounded-b-lg',
-    navMenuItem: 'hover:font-medium cursor-pointer px-2 py-1 text-lg',
+    navMenuItem: 'hover:font-medium cursor-pointer px-2 py-1 text-lg font-semibold',
 
 
     bg: 'bg-gray-50',
