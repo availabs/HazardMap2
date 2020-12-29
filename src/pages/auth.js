@@ -7,7 +7,7 @@ const AuthConfig = {
     "ams-router"
   ],
   children: [
-    { type: PageHeader },
+    //{ type: PageHeader },
     { type: "ams-login" },
     { type: "ams-reset-password" },
     { type: "ams-logout",
