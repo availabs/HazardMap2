@@ -174,10 +174,10 @@ class NationalLanding extends React.Component {
                 <SlideOver
                     HeaderTitle={<div>
                         <div>{this.props.match.params.datatype === 'stormevents' ? `Storm Event Losses` : this.props.match.params.datatype === "sba" ? `SBA Loans`: "FEMA Disasters"}</div>
-                        <label className="text-sm">Select a State</label>
+                        <label className="text-base text-opacity-100">Select a State</label>
                         {this.processFipsDomain() ? <div className="relative">
                             <select
-                                className="rounded-md w-full bg-transparent max-w-md"
+                                className="rounded-lg py-3 px-3 border-2 border-gray-200 w-full bg-white"
                                 onChange={(e) =>{
                                     let fips = e.target.value
                                     this.setState({
@@ -200,7 +200,7 @@ class NationalLanding extends React.Component {
                             <div>
                                 <label className="text-sm">Select a Geography</label>
                                 <select
-                                    className="rounded-md w-full bg-transparent max-w-md"
+                                    className="rounded-lg py-3 px-3 border-2 border-gray-200 w-full bg-white"
                                     onChange={(e) =>{
                                         let filter = e.target.value
                                         this.setState({
