@@ -120,10 +120,10 @@ const config = {
             "total_cost_summaries",
             "total_disasters"
         ],
-        sort: 'total_cost',
+        sort: 'total_cost_summaries',
         graph_column : ['total_cost'],
-        table_column : ["total_cost","total_cost_summaries"],
-        table_header: ['$ Total Cost','$ Total Cost Summaries'],
+        table_column : ['ia_ihp_amount','pa_project_amount','hma_total_amount',"total_cost_summaries"], //
+        table_header: ['IHA','PA','HMGP','$Total Cost Summaries'],
         fetch_url: 'fema.disasters',
         popover : [
             {

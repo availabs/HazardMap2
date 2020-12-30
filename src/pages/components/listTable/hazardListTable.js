@@ -95,6 +95,7 @@ class HazardListTable extends React.Component{
         const graphById = get(this.props.falcorCache,`${config[this.props.data_type].fetch_url}.byId`,null)
         let graph_data = []
         let femaData = []
+        let attributes = ["name", "value", ...config[this.props.data_type].table_column]
         if(graphById && graph) {
             graph_data = config['Hazards'].reduce((a, c) => {
                 a.push({
@@ -124,25 +125,39 @@ class HazardListTable extends React.Component{
                 config['Hazards'].forEach(hazard =>{
                     let total_cost = 0
                     let total_cost_summaries = 0
+                    let ia_total = 0
+                    let pa_total = 0
+                    let hmgp_total = 0
                     Object.keys(graph).filter(d => d!== '$__path').forEach(item =>{
-                        total_cost += get(graph[item],[hazard.value,this.props.year,'total_cost','value'],0)
+                        //total_cost += get(graph[item],[hazard.value,this.props.year,'total_cost','value'],0)
+                        ia_total += get(graph[item],[hazard.value,this.props.year,'ia_ihp_amount','value'],0)
+                        pa_total += get(graph[item],[hazard.value,this.props.year,'pa_project_amount','value'],0)
+                        hmgp_total += (get(graph[item],[hazard.value,this.props.year,'hma_prop_actual_amount_paid','value'],0) + get(graph[item],[hazard.value,this.props.year,'hma_proj_project_amount','value'],0))
                         total_cost_summaries += get(graph[item],[hazard.value,this.props.year,'total_cost_summaries','value'],0)
                     })
                     femaData.push({
                         'name': hazard.name,
                         'value': hazard.value,
-                        'total_cost': total_cost,
+                        //'total_cost': total_cost,
+                        'ia_ihp_amount': ia_total,
+                        'pa_project_amount': pa_total,
+                        'hma_total_amount': hmgp_total,
                         'total_cost_summaries': total_cost_summaries
                     })
                 })
             }else{
                 femaData =Object.keys(graph).filter(d => d!=="$__path").map(hazard => {
-                    return ["name", "value", "total_cost", "total_cost_summaries"].reduce((a, header) => {
+                    return attributes.reduce((a, header) => {
                         config['Hazards'].forEach(item => {
                             if (item.value === hazard) {
                                 if (header === 'name' || header === 'value') {
                                     a[header] = item[header]
-                                } else {
+                                }
+                                else if(header === 'hma_total_amount'){
+
+                                    a[header] = get(graph[hazard], [this.props.year,'hma_prop_actual_amount_paid','value'], 0) + get(graph[hazard], [this.props.year,'hma_proj_project_amount','value'], 0)
+                                }
+                                else {
                                     a[header] = get(graph[hazard], [this.props.year, header,'value'], 0)
                                 }
                             }
@@ -176,20 +191,20 @@ class HazardListTable extends React.Component{
                     <table className="min-w-full">
                         <thead>
                         <tr>
-                            <th className="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase ">
+                            <th className="px-2 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase ">
                                 Hazard
                             </th>
                             {config[this.props.data_type].table_header.map((header,i) =>{
-                                if(header === 'Damage' || header === 'Total Loss' || header === 'Actual Amount Paid'){
+                                if(header === 'Damage' || header === 'Total Loss' || header === 'Actual Amount Paid' || header === 'IHA' || header === 'PA' || header === 'HMGP'){
                                     return (
-                                        <th className="px-3 text-right py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase "
+                                        <th className="px-2 text-right py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase "
                                             key={i}
                                         >
                                             {header}-{this.props.year}
                                         </th>
                                     )}else{
                                         return(
-                                            <th className="px-3 text-right py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase "
+                                            <th className="px-2 text-right py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase "
                                                 key={i}
                                             >
                                                 {header}
@@ -230,7 +245,7 @@ class HazardListTable extends React.Component{
                                         </td>
                                         {config[this.props.data_type].table_column.map((column,i) =>{
                                             return (
-                                                <td className="px-4 py-2 whitespace-no-wrap text-sm leading-5 font-base text-gray-900 text-right" key={i}>
+                                                <td className="px-1 py-2 whitespace-no-wrap text-sm leading-5 font-base text-gray-900 text-right" key={i}>
                                                     {!column.includes("num") || !column.includes("total") ? fnum(hazard[column]) : hazard[column].toLocaleString()}
                                                 </td>
                                             )
