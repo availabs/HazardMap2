@@ -15,8 +15,8 @@ import SlideOver from "./components/SlideOver";
 import HazardListTable from "../components/listTable/hazardListTable";
 import MapsLayerFactory from "./MapsLayer";
 import AvlMap from "../../components/AvlMap";
-
-
+import {TopNav, useTheme} from '@availabs/avl-components'
+import FemaDisasters from "../fema_disasters";
 
 class NationalLanding extends React.Component {
     MapsLayer = MapsLayerFactory({active: true});
@@ -119,11 +119,44 @@ class NationalLanding extends React.Component {
     }
 
     render() {
+        let navItems = [
+            {
+                name: 'By Hazard',
+                id: 1,
+                path: `/maps/fema`, // d.data['url-slug'],
+                sectionClass: 'mb-4',
+                itemClass: 'font-bold',
+                children: [],
+                rest: {}
+            },
+            {
+                name: 'By Disaster Number',
+                id: 2,
+                path: `/fema_disasters`, // d.data['url-slug'],
+                sectionClass: 'mb-4',
+                itemClass: 'font-bold',
+                children: [],
+                rest: {}
+            }
+
+        ]
         return (
             <div className='flex flex-col lg:flex-row h-screen box-border w-full -mt-4 fixed overflow-auto'>
                 <div className='flex-auto h-full order-last lg:order-none'>
+                    <div className='w-full fixed bg-white z-10'>
+                        {this.props.match.params.datatype === 'fema' || this.props.match.params.datatype === 'fema_disasters'?
+                            <TopNav
+                                menuItems={navItems}
+                                customTheme={{
+                                    sidebarBg: 'bg-white',
+                                    topNavHeight: 'h-12' ,
+                                    navitemTop: 'px-8 inline-flex items-center border-b border-r border-gray-200 text-base font-normal text-gray-800 hover:pb-4 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
+                                    navitemTopActive: 'px-8 inline-flex items-center border-b border-r border-gray-200 text-base font-normal text-blue-500 hover:pb-4 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out'
+                                }}
+                            /> :null}
+                    </div>
                     <div className='h-full'>
-                        <div className="mx-auto h-8 w-2/6 pt-6 z-40">
+                        <div className="mx-auto h-8 w-2/6 pt-11 z-40">
                             <Legend
                                 title = {`Losses in each County from ${config['Hazards'].filter(d => d.value === this.state.hazard)[0].name}, ${this.state.year.replace('allTime', '1996-2019')}`}
                                 type = {"threshold"}
@@ -292,7 +325,8 @@ export default [
             fixed: true,
             maxWidth: '',//'max-w-7xl',
             headerBar: true,
-            nav: 'top'
+            nav: 'top',
+            subNav: 'true'
         }
     },
     {
@@ -306,9 +340,11 @@ export default [
             fixed: true,
             maxWidth: '',//'max-w-7xl',
             headerBar: true,
-            nav: 'top'
+            nav: 'top',
+
         }
-    }
+    },
+
 
 ]
 

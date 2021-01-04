@@ -2,7 +2,7 @@ import React from 'react'
 
 
 const Header = ({toggle,open,title,body, ...props}) => (
-  <header className="space-y-1 py-4 px-4 sm:px-2 min-w-full">
+  <header className="space-y-1 py-4 px-4 sm:px-2 min-w-full pt-12">
     <div className="flex items-center justify-between space-x-3">
       <h2 className="text-lg leading-7 font-medium min-w-full">
         {title}

@@ -5,13 +5,17 @@ import Overview from './pages/Overview/index'
 import NoMatch from "pages/404"
 import StormEvents from 'pages/StormEvents/index_combined'
 import Methodology from 'pages/Methodology/methodology'
+import FemaDisasters from 'pages/fema_disasters/index'
+import FemaDisasterDeclarations from 'pages/fema_disasters/components/femaDisasterDeclarations'
 const Routes = [
   //...Landing,
   Home,
   ...StormEvents,
   DataDownload,
   ...Overview,
-        ...Methodology,
+  ...Methodology,
+  ...FemaDisasters,
+        ...FemaDisasterDeclarations,
   Auth,
   NoMatch
 ]

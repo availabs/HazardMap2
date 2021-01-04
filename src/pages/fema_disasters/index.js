@@ -4,15 +4,16 @@ import {reduxFalcor} from "utils/redux-falcor-new";
 import get from 'lodash.get';
 import { fnum } from "utils/sheldusUtils"
 import * as d3 from "d3";
-import Table from "../../components/avl-components/components/Table";
+import {Table, TopNav} from "@availabs/avl-components";
 import FemaDisastersStackedBarGraph from "./components/femaDisastersStackedBarGraph";
 import FemaDisastersCombinedHazardListTable from "./components/femaDisastersCombinedHazardListTable";
 import FemaDisastersCombinedEventsLayerFactory from './layers/femaDisastersCombinedTotalCostEventsLayer'
 import {Link} from 'react-router-dom';
-import Select from "../../components/avl-components/components/Inputs/select";
+import {Select} from "@availabs/avl-components";
 import AvlMap from "../../components/AvlMap";
 import {setActiveStateGeoid} from "store/modules/stormEvents";
 import {shmp} from 'pages/components/shmp-theme.js'
+import {withRouter} from "react-router";
 
 var format =  d3.format(".2s")
 var _ = require('lodash')
@@ -185,10 +186,43 @@ class FemaDisasters extends React.Component {
 
     render() {
         let data = this.processData();
+        let navItems = [
+            {
+                name: 'By Hazard',
+                id: 1,
+                path: `/maps/fema`, // d.data['url-slug'],
+                sectionClass: 'mb-4',
+                itemClass: 'font-bold',
+                children: [],
+                rest: {}
+            },
+            {
+                name: 'By Disaster Number',
+                id: 2,
+                path: `/fema_disasters`, // d.data['url-slug'],
+                sectionClass: 'mb-4',
+                itemClass: 'font-bold',
+                children: [],
+                rest: {}
+            }
+
+        ]
         return (
-            <div className="overflow-auto focus:outline-none h-full">
-                <div className="container max-w-7xl mx-auto h-auto">
-                    <div className="mt-5 grid grid-cols-8 gap-5 sm:grid-cols-8 py-5">
+            <div className="flex flex-col lg:flex-row h-screen box-border w-full -mt-4 fixed overflow-auto">
+                <div className='w-full fixed bg-white m-0'>
+                    {this.props.match.params.datatype === 'fema' || this.props.match.path === '/fema_disasters'?
+                        <TopNav
+                            menuItems={navItems}
+                            customTheme={{
+                                sidebarBg: 'bg-white',
+                                topNavHeight: 'h-12' ,
+                                navitemTop: 'px-8 inline-flex items-center border-b border-r border-gray-200 text-base font-normal text-gray-800 hover:pb-4 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
+                                navitemTopActive: 'px-8 inline-flex items-center border-b border-r border-gray-200 text-base font-normal text-blue-500 hover:pb-4 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out'
+                            }}
+                        /> :null}
+                </div>
+                <div className="container max-w-7xl mx-auto h-auto ">
+                    <div className="mt-10 grid grid-cols-8 gap-5 sm:grid-cols-8 py-5">
                         {stat_boxes.map((stat_box,i) =>{
                             return(
                                 <div className="bg-white shadow rounded-lg"  key={i}>
@@ -248,7 +282,7 @@ class FemaDisasters extends React.Component {
                         />
                     </div>
                 </div>
-                <div className='flex flex-col lg:flex-row h-screen box-border overflow-hidden'>
+               {/* <div className='flex flex-col lg:flex-row h-screen box-border overflow-hidden'>
                     <div className='flex-auto h-full order-last lg:order-none overflow-hidden'>
                         <div className='h-full'>
                             <AvlMap
@@ -325,7 +359,7 @@ class FemaDisasters extends React.Component {
                         />
 
                     </div>
-                </div>
+                </div>*/}
 
             </div>
 
@@ -345,30 +379,22 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     setActiveStateGeoid
 };
-
+const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(reduxFalcor(FemaDisasters))
 export default [
     {
-        path: '/fema_test/',
+        path: '/fema_disasters',
         mainNav: false,
         exact: true,
         name: 'FEMA Disasters',
+        authed:false,
+        component:withRouter(ConnectedComponent),
         layoutSettings: {
             fixed: true,
             maxWidth: '',//'max-w-7xl',
             headerBar: false,
             nav: 'top',
-            theme: shmp,
-        },
-        component: {
-            type: 'div',
-            props: {
-                className: 'w-full overflow-hidden pt-16 focus:outline-none',
-                style: {height: 'calc(100vh)'}
-            },
-            children: [
-                connect(mapStateToProps, mapDispatchToProps)(reduxFalcor(FemaDisasters))
-            ]
+
         }
-    },
+    }
 
 ]

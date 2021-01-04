@@ -2,8 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {reduxFalcor} from "utils/redux-falcor-new";
 import get from 'lodash.get';
-import Table from "components/avl-components/components/Table";
-import Header from "components/avl-components/components/Header/Header";
+import {Header, Table, TopNav} from "@availabs/avl-components";
 import FemaDisastersIATotalsStatBoxes from "./FemaDisastersIATotalsStatBoxes";
 import FemaDisastersTotalsEventsLayer from '../layers/femaDisastersTotalsEventsLayer'
 import FemaDisastersPATotalsStatBoxes from "./FemaDisastersPATotalsStatBoxes";
@@ -13,6 +12,7 @@ import {fnum} from "../../../utils/sheldusUtils";
 import * as d3 from "d3";
 import AvlMap from "../../../components/AvlMap";
 import {shmp} from 'pages/components/shmp-theme.js'
+import {withRouter} from "react-router";
 var format =  d3.format("~s")
 var _ = require("lodash")
 const fmt = (d) => d < 1000 ? d : format(d)
@@ -137,8 +137,41 @@ class FemaDisasterDeclarations extends React.Component{
 
     render(){
         let data = this.processData()
+        let navItems = [
+            {
+                name: 'By Hazard',
+                id: 1,
+                path: `/maps/fema`, // d.data['url-slug'],
+                sectionClass: 'mb-4',
+                itemClass: 'font-bold',
+                children: [],
+                rest: {}
+            },
+            {
+                name: 'By Disaster Number',
+                id: 2,
+                path: `/fema_disasters`, // d.data['url-slug'],
+                sectionClass: 'mb-4',
+                itemClass: 'font-bold',
+                children: [],
+                rest: {}
+            }
+
+        ]
         return (
-            <div className="w-full overflow-auto pt-8 focus:outline-none h-screen">
+            <div className="h-screen box-border w-full -mt-4 fixed overflow-auto">
+                <div className='relative bg-white z-40 m-0'>
+                    {this.props.match.params.datatype === 'fema' || this.props.match.params.disasterId ?
+                        <TopNav
+                            menuItems={navItems}
+                            customTheme={{
+                                sidebarBg: 'bg-white',
+                                topNavHeight: 'h-12' ,
+                                navitemTop: 'px-8 inline-flex items-center border-b border-r border-gray-200 text-base font-normal text-gray-800 hover:pb-4 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out',
+                                navitemTopActive: 'px-8 inline-flex items-center border-b border-r border-gray-200 text-base font-normal text-blue-500 hover:pb-4 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out'
+                            }}
+                        /> :null}
+                </div>
                 <div className="container max-w-7xl mx-auto">
                     <h1>{data && data.length > 0? `${_.uniq(_.map(data, 'declaration_title')).join(",")} - ${_.uniq(_.map(data, 'state')).join(",")}` : 'Loading'}</h1>
                     <div className="mt-5 grid grid-cols-8 gap-5 sm:grid-cols-8 py-5">
@@ -249,7 +282,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
 };
 
-
+const ConnectedComponent = connect(mapStateToProps,mapDispatchToProps)(reduxFalcor(FemaDisasterDeclarations))
 export default [
     {
         path: '/fema_disasters/disaster/:disasterId',
@@ -261,10 +294,9 @@ export default [
             fixed: true,
             maxWidth: '',//'max-w-7xl',
             headerBar: false,
-            nav: 'top',
-            theme: shmp,
+            nav: 'top'
         },
-        component: connect(mapStateToProps,mapDispatchToProps)(reduxFalcor(FemaDisasterDeclarations))
+        component: withRouter(ConnectedComponent)
             
     }
 

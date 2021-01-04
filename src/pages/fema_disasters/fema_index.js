@@ -7,7 +7,7 @@ import * as d3 from "d3";
 import FemaDisastersCombinedHazardListTable from "./components/femaDisastersCombinedHazardListTable";
 import FemaDisastersCombinedEventsLayerFactory from './layers/femaDisastersCombinedTotalCostEventsLayer'
 import AvlMap from "../../components/AvlMap";
-import Select from "../../components/avl-components/components/Inputs/select";
+import {Select} from "@availabs/avl-components";
 import {setActiveStateGeoid} from "../../store/modules/stormEvents";
 import {shmp} from "../components/shmp-theme";
 import Legend from "../StormEvents/components/Legend";
@@ -147,7 +147,7 @@ class NewFemaDisasters extends React.Component{
                                     format= {fnumClean}
                                 />
                             </div>
-                            <AvlMap
+                           {/* <AvlMap
                                 layers={[
                                     this.FemaCombinedEventsLayer
                                 ]}
@@ -170,7 +170,7 @@ class NewFemaDisasters extends React.Component{
                                         geography : this.state.geography_filter
                                     }
                                 }}
-                            />
+                            />*/}
                         </div>
                     </div>
                     <div className='h-56 lg:h-auto lg:w-1/4 p-2 lg:min-w-64 overflow-auto'>
