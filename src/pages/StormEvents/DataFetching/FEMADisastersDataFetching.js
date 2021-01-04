@@ -11,6 +11,7 @@ export const femaDisastersData = async (type,columns,fips_value,geography,hazard
     let geom ={}
     let geoNames = {}
     let femaByIdData = {}
+    let geoFips = {}
     let FemaDisastersCombinedTotalCostData = {}
     let FemaDisastersCombinedTotalCostData_US = {}
     let FemaDisastersCombinedTotalCostZipData = {}
@@ -38,6 +39,7 @@ export const femaDisastersData = async (type,columns,fips_value,geography,hazard
     if(type === 'map'){
         if(fips_value){
             geom = await falcorGraph.get(['geo',fips_value,'boundingBox','value'])
+            geoFips = await falcorGraph.get(['geo',fips_value,['state_abbr']])
         }
         if(geography === 'counties' ){
 
@@ -59,7 +61,7 @@ export const femaDisastersData = async (type,columns,fips_value,geography,hazard
                 FemaDisastersCombinedTotalCostZipData = await falcorGraph.get(['fema','disasters','byZip',zip_codes,hazard,year,columns])
             }
         }
-        return {geom,FemaDisastersCombinedTotalCostData,geoNames,FemaDisastersCombinedTotalCostZipData}
+        return {geom,geoFips,FemaDisastersCombinedTotalCostData,geoNames,FemaDisastersCombinedTotalCostZipData}
 
     }
     if(fips_value && type !== 'map'){

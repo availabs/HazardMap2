@@ -11,6 +11,7 @@ export const stormEventsData = async (type = '',columns = [],fips_value,geograph
     let severeWeather_US = {}
     let severeWeather_fips = {}
     let geom = {}
+    let geoFips = {}
     const geoData =await falcorGraph.get(['geo', geo_fips, geography, 'geoid'],['geo',config.fips,['name']])
     let graph = get(geoData,['json','geo'],null)
     filtered_geographies = Object.values(graph)
@@ -21,13 +22,14 @@ export const stormEventsData = async (type = '',columns = [],fips_value,geograph
             return out
         }, [])
     if(type === 'map'){
-
         severeWeather = await falcorGraph.get(['severeWeather',filtered_geographies,hazard,year,columns])
         geoNames = await falcorGraph.get(['geo',filtered_geographies,['name']])
         if(fips_value){
             geom = await falcorGraph.get(['geo',fips_value,'boundingBox','value'])
+            geoFips = await falcorGraph.get(['geo',fips_value,['state_abbr']])
         }
-        return {severeWeather,geoNames,geom}
+
+        return {severeWeather,geoNames,geoFips,geom}
     }
     if(fips_value){
         severeWeather_fips = await falcorGraph.get(['severeWeather',geo_fips,hazard,year,columns])

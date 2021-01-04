@@ -14,6 +14,7 @@ export const sbaData = async (type='',columns=[],fips_value,geography_filter,haz
     let sbaZipData = {}
     let sbaData_fips = {}
     let geom = {}
+    let geoFips = {}
     const geoData =await falcorGraph.get(['geo', geo_fips, 'counties', 'geoid'],
         ['geo',config.fips,['name']])
     let graph = get(geoData,['json','geo'],null)
@@ -48,8 +49,9 @@ export const sbaData = async (type='',columns=[],fips_value,geography_filter,haz
         }
         if(fips_value){
             geom = await falcorGraph.get(['geo',fips_value,'boundingBox','value'])
+            geoFips = await falcorGraph.get(['geo',fips_value,['state_abbr']])
         }
-        return {sbaData,sbaZipData,geoNames,geom}
+        return {sbaData,sbaZipData,geoNames,geoFips,geom}
 
     }
     if(fips_value){

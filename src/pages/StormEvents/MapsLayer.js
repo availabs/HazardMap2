@@ -267,14 +267,19 @@ export default (props = {}) =>
     new MapsLayer("Maps Layer", {
         ...props,
         popover: {
-            layers: ['counties','state'],
+            layers: ['counties','cousubs','tracts','zipcodes','state'],
             pinned:false,
             dataFunc: function (d) {
                 const {properties} = d
-                let graph = get(this.falcorCache,`${config[this.filters.dataType.value].fetch_url}.${properties.county_fips}.${this.filters.hazard.value}.${this.filters.year.value}`,null)
+                let geoid = this.filters.geography.value === 'counties' ? properties.county_fips : this.filters.geography.value === 'zip_codes' ? get(properties,['ZCTA5CE10'],'') : properties.geoid
+                let name = this.filters.geography.value === 'zip_codes' ? get(properties,['ZCTA5CE10'],'') : get(this.falcorCache,['geo',geoid,'name'],'')
+                let state_abbr = this.filters.geography.value === 'counties'? get(properties,['state_abbrev'],'') : get(this.falcorCache,['geo',this.filters.fips.value,'state_abbr'],'')
+                let graph = this.filters.geography.value === 'zip_codes' ?
+                    get(this.falcorCache,`${config[this.filters.dataType.value].fetch_url}.byZip.${geoid}.${this.filters.hazard.value}.${this.filters.year.value}`,null)
+                    :get(this.falcorCache,`${config[this.filters.dataType.value].fetch_url}.${geoid}.${this.filters.hazard.value}.${this.filters.year.value}`,null)
                 return [
                         [   (<div className='text-sm text-bold text-left'>
-                            {`${get(properties,'county_name','')},${get(properties,['state_abbrev'])}`}
+                            {`${name},${state_abbr}`}
                         </div>)
                         ],
                         [   (<div className='text-xs text-gray-500 text-left'>
