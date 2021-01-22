@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e21d9bc3.chunk.css",
+    "main.js": "/static/js/main.c3172d1d.chunk.js",
+    "main.js.map": "/static/js/main.c3172d1d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.654e4bc5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.654e4bc5.js.map",
+    "static/css/2.e426f036.chunk.css": "/static/css/2.e426f036.chunk.css",
+    "static/js/2.68fbef1c.chunk.js": "/static/js/2.68fbef1c.chunk.js",
+    "static/js/2.68fbef1c.chunk.js.map": "/static/js/2.68fbef1c.chunk.js.map",
+    "static/js/3.7f5db251.chunk.js": "/static/js/3.7f5db251.chunk.js",
+    "static/js/3.7f5db251.chunk.js.map": "/static/js/3.7f5db251.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.e426f036.chunk.css.map": "/static/css/2.e426f036.chunk.css.map",
+    "static/css/main.e21d9bc3.chunk.css.map": "/static/css/main.e21d9bc3.chunk.css.map",
+    "static/js/2.68fbef1c.chunk.js.LICENSE.txt": "/static/js/2.68fbef1c.chunk.js.LICENSE.txt",
+    "static/media/tailwind.css": "/static/media/ProximaNova-Xbold-webfont.f190889d.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.654e4bc5.js",
+    "static/css/2.e426f036.chunk.css",
+    "static/js/2.68fbef1c.chunk.js",
+    "static/css/main.e21d9bc3.chunk.css",
+    "static/js/main.c3172d1d.chunk.js"
+  ]
+}

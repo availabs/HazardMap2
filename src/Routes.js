@@ -7,15 +7,19 @@ import StormEvents from 'pages/StormEvents/index_combined'
 import Methodology from 'pages/Methodology/methodology'
 import FemaDisasters from 'pages/fema_disasters/index'
 import FemaDisasterDeclarations from 'pages/fema_disasters/components/femaDisasterDeclarations'
+import CMS from 'pages/CMS/edit'
+
+
 const Routes = [
   //...Landing,
   Home,
   ...StormEvents,
+  CMS,
   DataDownload,
   ...Overview,
   ...Methodology,
   ...FemaDisasters,
-        ...FemaDisasterDeclarations,
+  ...FemaDisasterDeclarations,
   Auth,
   NoMatch
 ]

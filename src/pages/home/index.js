@@ -1,5 +1,4 @@
 import React from "react"
-import {shmp} from 'pages/components/shmp-theme.js'
 import Search from "./Search";
 
 const HomePage = () => (
@@ -168,7 +167,6 @@ export default {
   layoutSettings: {
     fixed: true,
     headerBar: false,
-    nav: 'top',
-    theme: shmp
+    nav: 'top'
   }
 }

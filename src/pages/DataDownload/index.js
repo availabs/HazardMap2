@@ -1,6 +1,5 @@
 import React from 'react'
 import DataDownload from "./DataDownload";
-import {shmp} from 'pages/components/shmp-theme.js'
 
 const MetaData = () => (
 <div className="bg-gray-50 mt-0 min-h-screen">
@@ -156,8 +155,7 @@ export default {
   layoutSettings: {
     fixed: true,
     headerBar: false,
-    nav: 'top',
-    theme: shmp
+    nav: 'top'
   }
 }
 

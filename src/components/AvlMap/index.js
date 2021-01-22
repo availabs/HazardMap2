@@ -1,7 +1,7 @@
 import React from "react"
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
-import { MAPBOX_TOKEN } from 'store/config'
+//import { MAPBOX_TOKEN } from 'store/config'
 
 import deepequal from "deep-equal"
 import get from "lodash.get"
@@ -25,6 +25,7 @@ import {
 } from "./LayerMessageSystem"
 
 
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiYW0zMDgxIiwiYSI6IkxzS0FpU0UifQ.rYv6mHCcNd7KKMs7yhY3rw'
 
 let UNIQUE_ID = 0;
 const getUniqueId = (str = "unique-id") =>
