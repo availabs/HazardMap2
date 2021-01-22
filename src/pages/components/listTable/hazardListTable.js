@@ -8,6 +8,10 @@ import {stormEventsData} from "../../StormEvents/DataFetching/StormEventsDataFec
 import {sbaData} from "../../StormEvents/DataFetching/SBADataFetching";
 import {femaDisastersData} from "../../StormEvents/DataFetching/FEMADisastersDataFetching";
 import config from "../../StormEvents/components/config";
+import {Table} from "@availabs/avl-components";
+import * as d3 from "d3";
+var format =  d3.format("~s")
+const fmt = (d) => d < 1000 ? d : format(d)
 
 class HazardListTable extends React.Component{
     constructor(props) {
@@ -246,7 +250,7 @@ class HazardListTable extends React.Component{
                                         {config[this.props.data_type].table_column.map((column,i) =>{
                                             return (
                                                 <td className="px-1 py-2 whitespace-no-wrap text-sm leading-5 font-base text-gray-900 text-right" key={i}>
-                                                    {!column.includes("num") || !column.includes("total") ? fnum(hazard[column]) : hazard[column].toLocaleString()}
+                                                    {!column.includes("num") ? fnum(hazard[column]) : fmt(hazard[column])}
                                                 </td>
                                             )
                                         })}

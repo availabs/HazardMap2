@@ -15,8 +15,8 @@ import SlideOver from "./components/SlideOver";
 import HazardListTable from "../components/listTable/hazardListTable";
 import MapsLayerFactory from "./MapsLayer";
 import AvlMap from "../../components/AvlMap";
-import {TopNav, useTheme} from '@availabs/avl-components'
-import FemaDisasters from "../fema_disasters";
+import {TopNav, useTheme, Loading} from '@availabs/avl-components'
+
 
 class NationalLanding extends React.Component {
     MapsLayer = MapsLayerFactory({active: true});
@@ -158,10 +158,14 @@ class NationalLanding extends React.Component {
                     <div className='h-full'>
                         <div className="mx-auto h-8 w-2/6 pt-11 z-40">
                             <Legend
-                                title = {`Losses in each County from ${config['Hazards'].filter(d => d.value === this.state.hazard)[0].name}, ${this.state.year.replace('allTime', '1996-2019')}`}
+                                title = {`Losses in each ${this.props.match.params.datatype === 'sba' || this.props.match.params.datatype === 'fema' ? 
+                                    this.state.geography_sba.reduce((a,c) => c.value === this.state.geography_filter ? c.name : a,null)
+                                :
+                                    this.state.geography_storm.reduce((a,c) => c.value === this.state.geography_filter ? c.name : a,null)
+                                } from ${config['Hazards'].filter(d => d.value === this.state.hazard)[0].name}, ${this.state.year.replace('allTime', '1996-2019')}`}
                                 type = {"threshold"}
                                 range= {["#F1EFEF",...hazardcolors[this.state.hazard + '_range']]}
-                                domain = {this.state.geography === 'counties' ? config[this.props.match.params.datatype].counties_domain : config[this.props.match.params.datatype].other_domain}
+                                domain = {this.state.geography_filter === 'counties' ? config[this.props.match.params.datatype].counties_domain : config[this.props.match.params.datatype].other_domain}
                                 format= {fnumClean}
                             />
                         </div>
@@ -190,8 +194,8 @@ class NationalLanding extends React.Component {
                                     }
                                 }}
                             />
+
                         <div className='absolute bottom-20 h-40 z-30 md:w-full md:px-12'>
-                            <div className="text-xs absolute pt-8">Click on a bar to filter the data by year</div>
                             <StackedBarGraph
                                 height={200}
                                 type={'graph'}
@@ -199,6 +203,7 @@ class NationalLanding extends React.Component {
                                 setYear={this.setYear.bind(this)}
                                 hazard={this.state.hazard}
                                 geoid={this.state.fips_value? this.state.fips_value : null}
+                                year={this.state.year}
                             />
                         </div>
 

@@ -7,6 +7,7 @@ import StormEvents from 'pages/StormEvents/index_combined'
 import Methodology from 'pages/Methodology/methodology'
 import FemaDisasters from 'pages/fema_disasters/index'
 import FemaDisasterDeclarations from 'pages/fema_disasters/components/femaDisasterDeclarations'
+import Rankings from 'pages/Rankings/index'
 const Routes = [
   //...Landing,
   Home,
@@ -14,6 +15,7 @@ const Routes = [
   DataDownload,
   ...Overview,
   ...Methodology,
+    ...Rankings,
   ...FemaDisasters,
         ...FemaDisasterDeclarations,
   Auth,
