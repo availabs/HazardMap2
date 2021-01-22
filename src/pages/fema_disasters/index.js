@@ -91,6 +91,38 @@ const tableCols = [
         }
     },
     {
+        Header:'IHP Details Total',
+        accessor: 'ihp_details_total',
+        disableFilters: true,
+        Cell: (data) => {
+            return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.ihp_details_total', ''))}</div>
+        }
+    },
+    {
+        Header:'PA Details Total',
+        accessor: 'pa_details_total',
+        disableFilters: true,
+        Cell: (data) => {
+            return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.pa_details_total', ''))}</div>
+        }
+    },
+    {
+        Header:'HMGP Details Total',
+        accessor: 'hmgp_details_total',
+        disableFilters: true,
+        Cell: (data) => {
+            return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.hmgp_details_total', ''))}</div>
+        }
+    },
+    {
+        Header:'Total Details',
+        accessor: 'total_details',
+        disableFilters: true,
+        Cell: (data) => {
+            return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.total_details', ''))}</div>
+        }
+    },
+    {
         Header:'Total Cost',
         accessor: 'total_cost',
         disableFilters: true,
@@ -165,9 +197,16 @@ class FemaDisasters extends React.Component {
                     if(graph[item][attribute]){
                         out[attribute] =  graph[item][attribute].value
                     }
-                    return out
-                },{}))
 
+                    return out
+                },{})
+                )
+                data.map(d => {
+                    d['ihp_details_total'] = get(graph,[item,'total_amount_ihp_approved','value'],0) + get(graph,[item,'total_amount_ona_approved','value'],0)
+                    d['pa_details_total'] = get(graph,[item,'total_obligated_amount_pa','value'],0)
+                    d['hgmp_details_total'] = get(graph,[item,'total_obligated_amount_hmgp','value'],0)
+                    d['total_details'] = d['ihp_details_total'] + d['pa_details_total'] + d['hgmp_details_total']
+                })
                 stat_boxes.forEach(d =>{
                     if(d && d.value !== 'total_funds'){
                         d.amount += get(graph,[item,d.value,'value'],0) ? parseFloat(get(graph,[item,d.value,'value'],0)) : 0
@@ -180,7 +219,8 @@ class FemaDisasters extends React.Component {
                     return a
                 },0)
             })
-            return _.filter(data,v => _.keys(v).length !== 0)
+
+            return _.filter(data,v => _.keys(v).length !== 0 && _.keys(v).includes('disaster_number'))
         }
     }
 

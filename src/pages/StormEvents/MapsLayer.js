@@ -113,7 +113,7 @@ class MapsLayer extends MapLayer {
         let graph = this.filters.dataType.value ? get(this.falcorCache,fetch_url,null) : null
         let geo = {}
         if(graph){
-            this.loading = false
+            //this.loading = false
             if(geography !== 'zip_codes'){
                 this.filtered_geographies = this.filters.fips.value ? get(this.falcorCache,['geo',this.filters.fips.value,geography,'value'],null) : Object.keys(graph).filter( d=> d!== "")
             }else{
@@ -256,9 +256,9 @@ class MapsLayer extends MapLayer {
                 map.fitBounds(this.onLoadBounds)
             }
         }
-        else{
-            this.loading = true
-        }
+        // else{
+        //     this.loading = true
+        // }
     }
 }
 
