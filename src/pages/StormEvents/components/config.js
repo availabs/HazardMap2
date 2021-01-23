@@ -70,6 +70,7 @@ const config = {
                 type : 'fmt'
             },
         ],
+
         measure : 'total_damage',
         counties_domain : [1000000, 5000000, 10000000, 100000000, 1000000000, 10000000000],
         other_domain : [10000, 50000, 100000, 1000000, 10000000, 100000000]

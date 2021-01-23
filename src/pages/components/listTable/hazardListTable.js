@@ -13,14 +13,147 @@ import * as d3 from "d3";
 var format =  d3.format("~s")
 const fmt = (d) => d < 1000 ? d : format(d)
 
+let hazard = ''
 class HazardListTable extends React.Component{
     constructor(props) {
         super(props);
         this.state={
             isLoading : true,
-            currentHazard :''
+            currentHazard :hazard,
+            severeWeather: [
+                {
+                    Header: 'Hazard',
+                    accessor: 'name',
+                    Cell: (data) => {
+                        hazard =  config.Hazards.reduce((a,c) => c.name === data.row.original.name ? c.value: a,'')
+                        return this.handleHazardOnClick(data,hazard)
+                    }
+
+                },
+                {
+                    Header: `Total Damage -${this.props.year}`,
+                    accessor: 'total_damage',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.total_damage', ''))}</div>
+                    }
+                },
+                {
+                    Header: 'Yearly Avg Damage',
+                    accessor: 'annualized_damage',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.annualized_damage', ''))}</div>
+                    }
+                },
+                {
+                    Header: '# Episodes',
+                    accessor: 'num_episodes',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fmt(get(data,'row.values.num_episodes', ''))}</div>
+                    }
+                },
+            ],
+            sba:[{
+                Header: 'Hazard',
+                accessor: 'name',
+                Cell: (data) => {
+                    hazard =  config.Hazards.reduce((a,c) => c.name === data.row.original.name ? c.value: a,'')
+                    return this.handleHazardOnClick(data,hazard)
+                }
+
+            },
+                {
+                    Header: `Total Loss - ${this.props.year}`,
+                    accessor: 'total_loss',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.total_loss', ''))}</div>
+                    }
+                },
+                {
+                    Header: '$ Loan',
+                    accessor: 'loan_total',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.loan_total', ''))}</div>
+                    }
+                },
+                {
+                    Header: '# Loans',
+                    accessor: 'num_loans',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fmt(get(data,'row.values.num_loans', ''))}</div>
+                    }
+                }],
+            fema:[
+                {
+                    Header: 'Hazard',
+                    accessor: 'name',
+                    Cell: (data) => {
+                        hazard =  config.Hazards.reduce((a,c) => c.name === data.row.original.name ? c.value: a,'')
+                        return this.handleHazardOnClick(data,hazard)
+                    }
+
+                },
+                {
+                    Header: `IHA - ${this.props.year}` ,
+                    accessor: 'ia_ihp_amount',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.ia_ihp_amount', ''))}</div>
+                    }
+                },
+                {
+                    Header: `PA - ${this.props.year}`,
+                    accessor: 'pa_project_amount',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.pa_project_amount', ''))}</div>
+                    }
+                },
+                {
+                    Header: `HMGP - ${this.props.year}`,
+                    accessor: 'hma_total_amount',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fmt(get(data,'row.values.hma_total_amount', ''))}</div>
+                    }
+                },
+                {
+                    Header: '$Total Cost Summaries',
+                    accessor: 'total_cost_summaries',
+                    disableFilters: true,
+                    Cell: (data) => {
+                        return <div style = {{ textAlign: 'right'}}>{fmt(get(data,'row.values.total_cost_summaries', ''))}</div>
+                    }
+                }
+            ],
         }
 
+    }
+
+    handleHazardOnClick(data,hazard){
+        return (
+            <div style={{cursor: 'pointer'}} className={`bg-white  ${this.props.activeHazard === hazard ? 'border-b-2 border-blue-500 whitespace-nowrap' : 'border-b border-gray-200 whitespace-nowrap' }` }>
+                <div style={{backgroundColor:hazardcolors[hazard]}} className='w-3 h-3 mr-2 inline-block'
+                     onClick={(e) =>{
+                         e.persist()
+                         if(this.state.currentHazard !== hazard){
+                             this.props.setHazard(hazard)
+                             this.setState({
+                                 currentHazard : hazard
+                             })
+                         }else{
+                             this.props.setHazard(null)
+                         }
+                     }}>
+                </div>
+                {data.row.original.name}
+            </div>
+        )
     }
 
     componentWillUnmount(){
@@ -189,80 +322,92 @@ class HazardListTable extends React.Component{
     render(){
         const data = this.props.data_type !== 'fema' ?
             this.processData() : this.processFemaData()
+
         return(
                 <div className="align-middle inline-block min-w-full overflow-hidden"
                     key={0}>
-                    <table className="min-w-full">
-                        <thead>
-                        <tr>
-                            <th className="px-2 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase ">
-                                Hazard
-                            </th>
-                            {config[this.props.data_type].table_header.map((header,i) =>{
-                                if(header === 'Damage' || header === 'Total Loss' || header === 'Actual Amount Paid' || header === 'IHA' || header === 'PA' || header === 'HMGP'){
-                                    return (
-                                        <th className="px-2 text-right py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase "
-                                            key={i}
-                                        >
-                                            {header}-{this.props.year}
-                                        </th>
-                                    )}else{
-                                        return(
-                                            <th className="px-2 text-right py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase "
-                                                key={i}
-                                            >
-                                                {header}
-                                            </th>
-                                        )
-                                    }
-                                })}
+                    <Table
+                        defaultPageSize={20}
+                        showPagination={false}
+                        columns={this.props.data_type === 'stormevents' ? this.state.severeWeather : this.props.data_type === 'sba' ? this.state.sba : this.state.fema}
+                        data={data}
+                        initialPageSize={20}
+                        minRows={data.length}
+                        sortBy={config[this.props.data_type].measure}
+                        sortOrder={'desc'}
+                    />
+                    {/*<table className="min-w-full">*/}
+                    {/*    <thead>*/}
+                    {/*    <tr>*/}
+                    {/*        <th className="px-2 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase ">*/}
+                    {/*            Hazard*/}
+                    {/*        </th>*/}
+                    {/*        {config[this.props.data_type].table_header.map((header,i) =>{*/}
+                    {/*            if(header === 'Damage' || header === 'Total Loss' || header === 'Actual Amount Paid' || header === 'IHA' || header === 'PA' || header === 'HMGP'){*/}
+                    {/*                return (*/}
+                    {/*                    <th className="px-2 text-right py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase "*/}
+                    {/*                        key={i}*/}
+                    {/*                    >*/}
+                    {/*                        {header}-{this.props.year}*/}
+                    {/*                    </th>*/}
+                    {/*                )}else{*/}
+                    {/*                    return(*/}
+                    {/*                        <th className="px-2 text-right py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase "*/}
+                    {/*                            key={i}*/}
+                    {/*                        >*/}
+                    {/*                            {header}*/}
+                    {/*                        </th>*/}
+                    {/*                    )*/}
+                    {/*                }*/}
+                    {/*            })}*/}
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {   data.length ?
-                            data
-                            .filter(d => Object.keys(d).length !== 0)
-                            .sort((a,b) => b[config[this.props.data_type].sort] - a[config[this.props.data_type].sort])
-                            .map((hazard,i) =>{
-                                return(
-                                    <tr className={`bg-white  ${this.props.activeHazard === hazard.value ? 'border-b-2 border-blue-500' : 'border-b border-gray-200' }` }
-                                        key={i} id={hazard.value}>
-                                        <td className="px-4 py-2 whitespace-nowrap text-md leading-5 font-base text-gray-900" key={i}>
-                                            <div
-                                                className="hover:text-blue-600 cursor-pointer"
-                                                onClick={(e) =>{
-                                                    e.persist()
-                                                    if(this.state.currentHazard !== hazard.value){
-                                                        this.props.setHazard(hazard.value)
-                                                        this.setState({
-                                                            currentHazard : hazard.value
-                                                        })
-                                                    }else{
-                                                        this.props.setHazard(null)
-                                                    }
+                    {/*    </tr>*/}
+                    {/*    </thead>*/}
+                    {/*    <tbody>*/}
+                    {/*    {   data.length ?*/}
+                    {/*        data*/}
+                    {/*        .filter(d => Object.keys(d).length !== 0)*/}
+                    {/*        .sort((a,b) => b[config[this.props.data_type].sort] - a[config[this.props.data_type].sort])*/}
+                    {/*        .map((hazard,i) =>{*/}
+                    {/*            return(*/}
+                    {/*                <tr className={`bg-white  ${this.props.activeHazard === hazard.value ? 'border-b-2 border-blue-500' : 'border-b border-gray-200' }` }*/}
+                    {/*                    key={i} id={hazard.value}>*/}
+                    {/*                    <td className="px-4 py-2 whitespace-nowrap text-md leading-5 font-base text-gray-900" key={i}>*/}
+                    {/*                        <div*/}
+                    {/*                            className="hover:text-blue-600 cursor-pointer"*/}
+                    {/*                            onClick={(e) =>{*/}
+                    {/*                                e.persist()*/}
+                    {/*                                if(this.state.currentHazard !== hazard.value){*/}
+                    {/*                                    this.props.setHazard(hazard.value)*/}
+                    {/*                                    this.setState({*/}
+                    {/*                                        currentHazard : hazard.value*/}
+                    {/*                                    })*/}
+                    {/*                                }else{*/}
+                    {/*                                    this.props.setHazard(null)*/}
+                    {/*                                }*/}
 
-                                                }}
-                                                >
-                                                <div style={{backgroundColor:hazardcolors[hazard.value]}} className='w-3 h-3 mr-2 inline-block' />{hazard.name}
-                                            </div>
-                                        </td>
-                                        {config[this.props.data_type].table_column.map((column,i) =>{
-                                            return (
-                                                <td className="px-1 py-2 whitespace-no-wrap text-sm leading-5 font-base text-gray-900 text-right" key={i}>
-                                                    {!column.includes("num") ? fnum(hazard[column]) : fmt(hazard[column])}
-                                                </td>
-                                            )
-                                        })}
+                    {/*                            }}*/}
+                    {/*                            >*/}
+                    {/*                            <div style={{backgroundColor:hazardcolors[hazard.value]}} className='w-3 h-3 mr-2 inline-block' />{hazard.name}*/}
+                    {/*                        </div>*/}
+                    {/*                    </td>*/}
+                    {/*                    {config[this.props.data_type].table_column.map((column,i) =>{*/}
+                    {/*                        return (*/}
+                    {/*                            <td className="px-1 py-2 whitespace-no-wrap text-sm leading-5 font-base text-gray-900 text-right" key={i}>*/}
+                    {/*                                {!column.includes("num") ? fnum(hazard[column]) : fmt(hazard[column])}*/}
+                    {/*                            </td>*/}
+                    {/*                        )*/}
+                    {/*                    })}*/}
 
-                                    </tr>
-                                )
-                            })
-                        :
-                            null
-                            }
-                        </tbody>
-                    </table>
+                    {/*                </tr>*/}
+                    {/*            )*/}
+                    {/*        })*/}
+                    {/*    :*/}
+                    {/*        null*/}
+                    {/*        }*/}
+                    {/*    </tbody>*/}
+                    {/*</table>*/}
+
                 </div>
         )
     }
