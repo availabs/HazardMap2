@@ -1,5 +1,5 @@
 import React from "react"
-import {shmp} from 'pages/components/shmp-theme.js'
+//import {shmp} from 'pages/components/shmp-theme.js'
 import Search from "./Search";
 
 const HomePage = () => (
@@ -169,6 +169,6 @@ export default {
     fixed: true,
     headerBar: false,
     nav: 'top',
-    theme: shmp
+    //theme: shmp
   }
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/components/AvlMap" vcs="" />
+    <mapping directory="$PROJECT_DIR$/src/components/AvlMap" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/components/avl-components" vcs="" />
     <mapping directory="$PROJECT_DIR$/src/components/dms" vcs="" />
     <mapping directory="$PROJECT_DIR$/src/components/dms/dms" vcs="" />

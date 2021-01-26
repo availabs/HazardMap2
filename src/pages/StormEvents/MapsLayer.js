@@ -139,6 +139,7 @@ class MapsLayer extends MapLayer {
                 }
                 return a
             },{})
+            
             let range = ["#F1EFEF", ...hazardcolors[this.filters.hazard.value + '_range']]
             this.legend.domain = geography === 'counties' ? config[this.filters.dataType.value].counties_domain :
                config[this.filters.dataType.value].other_domain
@@ -362,7 +363,6 @@ export default (props = {}) =>
         sources: MapSources,
         layers: MapStyles,
         falcorCache: {},
-        loading:false,
         filters: {
             'year': {
                 type: 'dropdown',

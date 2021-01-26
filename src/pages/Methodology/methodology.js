@@ -11,7 +11,7 @@ import {
 import viewConfig from './view'
 import DmsComponents from "components/dms"
 import DmsWrappers from "components/dms/wrappers"
-import {shmp} from 'pages/components/shmp-theme.js'
+//import {shmp} from 'pages/components/shmp-theme.js'
 
 
 addComponents(DmsComponents)
@@ -95,7 +95,7 @@ export default [{
         maxWidth: '',//'max-w-7xl',
         headerBar: false,
         nav: 'top',
-        theme: shmp,
+        //theme: shmp,
     },
     component: Documentation
 },
@@ -111,7 +111,7 @@ export default [{
             maxWidth: '',//'max-w-7xl',
             headerBar: false,
             nav: 'top',
-            theme: shmp,
+            //theme: shmp,
         },
         component: DocsEditor
     }

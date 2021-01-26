@@ -22,8 +22,9 @@ class HazardListTable extends React.Component{
             currentHazard :hazard,
             severeWeather: [
                 {
-                    Header: 'Hazard',
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>Hazard</div>),
                     accessor: 'name',
+                    disableFilters: true,
                     Cell: (data) => {
                         hazard =  config.Hazards.reduce((a,c) => c.name === data.row.original.name ? c.value: a,'')
                         return this.handleHazardOnClick(data,hazard)
@@ -31,33 +32,34 @@ class HazardListTable extends React.Component{
 
                 },
                 {
-                    Header: `Total Damage -${this.props.year}`,
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>Total Damage-{this.props.year}</div>),
                     accessor: 'total_damage',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.total_damage', ''))}</div>
+                        return <div>{fnum(get(data,'row.values.total_damage', ''))}</div>
                     }
                 },
                 {
-                    Header: 'Yearly Avg Damage',
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>Yearly Avg Damage</div>),
                     accessor: 'annualized_damage',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.annualized_damage', ''))}</div>
+                        return <div>{fnum(get(data,'row.values.annualized_damage', ''))}</div>
                     }
                 },
                 {
-                    Header: '# Episodes',
+                    Header: (<div style={{fontSize: 12}}># Episodes</div>),
                     accessor: 'num_episodes',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fmt(get(data,'row.values.num_episodes', ''))}</div>
+                        return <div>{fmt(get(data,'row.values.num_episodes', ''))}</div>
                     }
                 },
             ],
             sba:[{
-                Header: 'Hazard',
+                Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>Hazard</div>),
                 accessor: 'name',
+                disableFilters: true,
                 Cell: (data) => {
                     hazard =  config.Hazards.reduce((a,c) => c.name === data.row.original.name ? c.value: a,'')
                     return this.handleHazardOnClick(data,hazard)
@@ -65,33 +67,34 @@ class HazardListTable extends React.Component{
 
             },
                 {
-                    Header: `Total Loss - ${this.props.year}`,
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>Total Loss - ${this.props.year}</div>),
                     accessor: 'total_loss',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.total_loss', ''))}</div>
+                        return <div>{fnum(get(data,'row.values.total_loss', ''))}</div>
                     }
                 },
                 {
-                    Header: '$ Loan',
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>$ Loan</div>),
                     accessor: 'loan_total',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.loan_total', ''))}</div>
+                        return <div>{fnum(get(data,'row.values.loan_total', ''))}</div>
                     }
                 },
                 {
-                    Header: '# Loans',
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}># Loans</div>),
                     accessor: 'num_loans',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fmt(get(data,'row.values.num_loans', ''))}</div>
+                        return <div>{fmt(get(data,'row.values.num_loans', ''))}</div>
                     }
                 }],
             fema:[
                 {
-                    Header: 'Hazard',
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>Hazard</div>),
                     accessor: 'name',
+                    disableFilters: true,
                     Cell: (data) => {
                         hazard =  config.Hazards.reduce((a,c) => c.name === data.row.original.name ? c.value: a,'')
                         return this.handleHazardOnClick(data,hazard)
@@ -99,35 +102,35 @@ class HazardListTable extends React.Component{
 
                 },
                 {
-                    Header: `IHA - ${this.props.year}` ,
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>IHA - ${this.props.year}</div>),
                     accessor: 'ia_ihp_amount',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.ia_ihp_amount', ''))}</div>
+                        return <div>{fnum(get(data,'row.values.ia_ihp_amount', ''))}</div>
                     }
                 },
                 {
-                    Header: `PA - ${this.props.year}`,
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>PA - ${this.props.year}</div>),
                     accessor: 'pa_project_amount',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fnum(get(data,'row.values.pa_project_amount', ''))}</div>
+                        return <div>{fnum(get(data,'row.values.pa_project_amount', ''))}</div>
                     }
                 },
                 {
-                    Header: `HMGP - ${this.props.year}`,
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>HMGP - ${this.props.year}</div>),
                     accessor: 'hma_total_amount',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fmt(get(data,'row.values.hma_total_amount', ''))}</div>
+                        return <div>{fmt(get(data,'row.values.hma_total_amount', ''))}</div>
                     }
                 },
                 {
-                    Header: '$Total Cost Summaries',
+                    Header: (<div style={{fontSize: 12, lineHeight:"150%"}}>$Total Cost Summaries</div>),
                     accessor: 'total_cost_summaries',
                     disableFilters: true,
                     Cell: (data) => {
-                        return <div style = {{ textAlign: 'right'}}>{fmt(get(data,'row.values.total_cost_summaries', ''))}</div>
+                        return <div>{fmt(get(data,'row.values.total_cost_summaries', ''))}</div>
                     }
                 }
             ],
@@ -137,7 +140,7 @@ class HazardListTable extends React.Component{
 
     handleHazardOnClick(data,hazard){
         return (
-            <div style={{cursor: 'pointer'}} className={`bg-white  ${this.props.activeHazard === hazard ? 'border-b-2 border-blue-500 whitespace-nowrap' : 'border-b border-gray-200 whitespace-nowrap' }` }>
+            <div style={{cursor: 'pointer'}} className={`bg-white  ${this.props.activeHazard === hazard ? 'border-blue-500 whitespace-nowrap' : 'border-gray-200 whitespace-nowrap' }` }>
                 <div style={{backgroundColor:hazardcolors[hazard]}} className='w-3 h-3 mr-2 inline-block'
                      onClick={(e) =>{
                          e.persist()
@@ -324,7 +327,7 @@ class HazardListTable extends React.Component{
             this.processData() : this.processFemaData()
 
         return(
-                <div className="align-middle inline-block min-w-full overflow-hidden"
+                <div className="align-left inline min-w-full overflow-hidden"
                     key={0}>
                     <Table
                         defaultPageSize={20}

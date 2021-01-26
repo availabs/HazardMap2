@@ -22,7 +22,7 @@ const SlideOver = ({children,...props}) => {
     <div className='h-full w-full sm:w-1/4'>
       <div className="h-full flex flex-col shadow-xl z-50 w-full bg-white mt-0">
         <Header open={open} toggle={toggle} title={props.HeaderTitle} body={props.HeaderBody}/>
-        <div className="relative flex-1 py-6 px-4 sm:px-6 z-50 hidden sm:block">
+        <div className="relative flex-1 py-6 px-4 sm:px-2 z-50 hidden sm:block">
          {/* <!-- Replace with your content -->*/}
           {children}
           {/*<!-- /End replace -->*/}
