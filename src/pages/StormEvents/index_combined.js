@@ -169,31 +169,31 @@ class NationalLanding extends React.Component {
                                 format= {fnumClean}
                             />
                         </div>
-                            <AvlMap
-                                layers={[
-                                    this.MapsLayer
-                                ]}
-                                height={'90%'}
-                                center={[0, 0]}
-                                zoom={4}
-                                year={2018}
-                                fips={''}
-                                styles={[
-                                    {name: 'Blank', style: 'mapbox://styles/am3081/ckaml4r1e1uip1ipgtx5vm9zk'}
-                                ]}
-                                sidebar={false}
-                                attributes={false}
-                                layerProps={{
-                                    [this.MapsLayer.name]: {
-                                        year: this.state.year,
-                                        hazard : this.state.hazard,
-                                        fips : this.state.fips_value ? this.state.fips_value : null,
-                                        geography : this.state.geography_filter,
-                                        dataType : this.props.match.params.datatype,
-                                        falcorCache: this.props.falcorCache
-                                    }
-                                }}
-                            />
+                        <AvlMap
+                            layers={[
+                                this.MapsLayer
+                            ]}
+                            height={'90%'}
+                            center={[0, 0]}
+                            zoom={4}
+                            year={2018}
+                            fips={''}
+                            styles={[
+                                {name: 'Blank', style: 'mapbox://styles/am3081/ckaml4r1e1uip1ipgtx5vm9zk'}
+                            ]}
+                            sidebar={false}
+                            attributes={false}
+                            layerProps={{
+                                [this.MapsLayer.name]: {
+                                    year: this.state.year,
+                                    hazard : this.state.hazard,
+                                    fips : this.state.fips_value ? this.state.fips_value : null,
+                                    geography : this.state.geography_filter,
+                                    dataType : this.props.match.params.datatype,
+                                    falcorCache: this.props.falcorCache
+                                }
+                            }}
+                        />
 
                         <div className='absolute bottom-20 h-40 z-30 md:w-full md:px-12'>
                             <StackedBarGraph
