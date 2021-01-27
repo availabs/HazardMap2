@@ -141,18 +141,21 @@ class StackedBarGraph extends React.Component{
                         animate={true}
                         motionStiffness={90}
                         motionDamping={15}
-                        tooltipFormat={value => `${fnum(value)}`}
-                        onClick={(e) => {
-                            this.props.setYear(e.data.year)
-                        }
-                        }
+                        tooltipFormat={value => `${fnum(value)} - Click on the bar to filter the data by year, re-click to filter for allTime`}
+                        onClick={(node,event) => {
+                            event.target.style.fill = "#361b1b"
+                            this.props.setYear(node.data.year)
+                            if(this.props.year === node.data.year) {
+                                event.target.style.fill = hazardcolors[Object.keys(node.data)[0]]
+                            }
+                        }}
+
                     />
                 </div>
             )
         }else{
             return(
                 <div style={ { width: this.props.width ? this.props.width : '100%', height: this.props.height ? this.props.height : "300px" } }>
-                Loading ...
                 </div>
             )
         }

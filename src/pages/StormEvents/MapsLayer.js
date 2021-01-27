@@ -112,8 +112,8 @@ class MapsLayer extends MapLayer {
         let fetch_url = this.filters.dataType.value ? geography !== 'zip_codes'  ? config[this.filters.dataType.value].fetch_url : `${config[this.filters.dataType.value].fetch_url}.byZip`: ''
         let graph = this.filters.dataType.value ? get(this.falcorCache,fetch_url,null) : null
         let geo = {}
-        //console.log('graph',graph)
         if(graph){
+            //this.loading = false
             if(geography !== 'zip_codes'){
                 this.filtered_geographies = this.filters.fips.value ? get(this.falcorCache,['geo',this.filters.fips.value,geography,'value'],null) : Object.keys(graph).filter( d=> d!== "")
             }else{
@@ -254,12 +254,11 @@ class MapsLayer extends MapLayer {
                     ]
                 );
                 map.fitBounds(this.onLoadBounds)
-
-
             }
         }
-
-
+        // else{
+        //     this.loading = true
+        // }
     }
 }
 
@@ -363,6 +362,7 @@ export default (props = {}) =>
         sources: MapSources,
         layers: MapStyles,
         falcorCache: {},
+        loading:false,
         filters: {
             'year': {
                 type: 'dropdown',
@@ -389,5 +389,5 @@ export default (props = {}) =>
                 value: null,
                 domain: []
             }
-        }
+        },
     })

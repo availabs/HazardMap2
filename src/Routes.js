@@ -8,7 +8,7 @@ import Methodology from 'pages/Methodology/methodology'
 import FemaDisasters from 'pages/fema_disasters/index'
 import FemaDisasterDeclarations from 'pages/fema_disasters/components/femaDisasterDeclarations'
 import CMS from 'pages/CMS/edit'
-
+import Rankings from 'pages/Rankings/index'
 
 const Routes = [
   //...Landing,
@@ -18,6 +18,7 @@ const Routes = [
   DataDownload,
   ...Overview,
   ...Methodology,
+    ...Rankings,
   ...FemaDisasters,
   ...FemaDisasterDeclarations,
   Auth,
