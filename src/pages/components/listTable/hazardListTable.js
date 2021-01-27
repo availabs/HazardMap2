@@ -140,7 +140,7 @@ class HazardListTable extends React.Component{
 
     handleHazardOnClick(data,hazard){
         return (
-            <div style={{cursor: 'pointer'}} className={`bg-white  ${this.props.activeHazard === hazard ? 'border-blue-500 whitespace-nowrap' : 'border-gray-200 whitespace-nowrap' }` }>
+            <div style={{cursor: 'pointer'}} className={`bg-white  ${this.props.activeHazard === hazard ? 'border-b-2 border-blue-500 whitespace-nowrap' : 'border-b border-gray-200 whitespace-nowrap' }` }>
                 <div style={{backgroundColor:hazardcolors[hazard]}} className='w-3 h-3 mr-2 inline-block'
                      onClick={(e) =>{
                          e.persist()
