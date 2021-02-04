@@ -28,21 +28,13 @@
     "lodash": "^4.17.20",
     "lodash.get": "^4.4.2",
     "lodash.pick": "^4.4.0",
-<<<<<<< HEAD
-    "mapbox-gl": "^2.0.1",
-=======
     "mapbox-gl": "^0.49.0",
->>>>>>> 12800b321c09ac8526166e938a610d3e6bf7ff79
     "react": "^17.0.1",
     "react-bootstrap-typeahead": "^5.1.4",
     "react-csv": "^2.0.3",
     "react-dom": "^17.0.1",
-<<<<<<< HEAD
-    "react-map-gl": "^6.0.3",
-=======
     "react-map-gl": "^5.2.1",
     "react-mapbox-gl": "^4.8.2",
->>>>>>> 12800b321c09ac8526166e938a610d3e6bf7ff79
     "react-onclickoutside": "^6.9.0",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
@@ -58,22 +50,14 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-<<<<<<< HEAD
-    "start": "npm run build:styles && react-scripts start",
-    "build": "react-scripts build",
-    "deploy": "react-scripts build && aws s3 sync build/ s3://hazardloss && aws cloudfront create-invalidation --distribution-id E2TSL9RX793OEN --paths \"/index.html\"",
-    "build:styles": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
-    "test": "react-scripts test",
-=======
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "build-css": "node-sass-chokidar src/ -o src/",
-    "deploy": "npm-run-all build-css build-js && aws s3 sync build/ s3://lhmp-prod && aws cloudfront create-invalidation --distribution-id ERYT3LJPUWTEV --paths \"/index.html\"",
+    "deploy": "npm-run-all build-css build-js && aws s3 sync build/ s3://hazardloss && aws cloudfront create-invalidation --distribution-id ERYT3LJPUWTEV --paths \"/index.html\"",
     "watch-css": "npm run build-css && node-sass-chokidar src/ --include-path ./node_modules src/ -o src/ --watch --recursive",
     "test": "react-scripts test --env=jsdom",
->>>>>>> 12800b321c09ac8526166e938a610d3e6bf7ff79
     "eject": "react-scripts eject"
   },
   "browserslist": {
@@ -89,15 +73,10 @@
     ]
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "autoprefixer": "^10.2.1",
-    "postcss": "^8.2.4",
-=======
     "autoprefixer": "^10.1.0",
     "node-sass-chokidar": "^1.5.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.1",
->>>>>>> 12800b321c09ac8526166e938a610d3e6bf7ff79
     "tailwindcss": "^2.0.2"
   }
 }

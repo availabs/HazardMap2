@@ -9,11 +9,8 @@ import FemaDisasters from 'pages/fema_disasters/index'
 import FemaDisasterDeclarations from 'pages/fema_disasters/components/femaDisasterDeclarations'
 import CMS from 'pages/CMS/edit'
 import Rankings from 'pages/Rankings/index'
-<<<<<<< HEAD
 
-=======
 import Test from 'pages/test'
->>>>>>> 12800b321c09ac8526166e938a610d3e6bf7ff79
 const Routes = [
   //...Landing,
   Home,
@@ -22,14 +19,10 @@ const Routes = [
   DataDownload,
   ...Overview,
   ...Methodology,
-    ...Rankings,
+  ...Rankings,
   ...FemaDisasters,
-<<<<<<< HEAD
   ...FemaDisasterDeclarations,
-=======
-        ...FemaDisasterDeclarations,
-        //...Test,
->>>>>>> 12800b321c09ac8526166e938a610d3e6bf7ff79
+  //...Test,
   Auth,
   NoMatch
 ]
