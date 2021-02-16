@@ -28,6 +28,9 @@ export const stormEventsData = async (type = '',columns = [],fips_value,geograph
             geom = await falcorGraph.get(['geo',fips_value,'boundingBox','value'])
             geoFips = await falcorGraph.get(['geo',fips_value,['state_abbr']])
         }
+        else{
+            geoFips = await falcorGraph.get(['geo',config.fips,['state_abbr']])
+        }
 
         return {severeWeather,geoNames,geoFips,geom}
     }

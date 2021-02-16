@@ -41,6 +41,9 @@ export const femaDisastersData = async (type,columns,fips_value,geography,hazard
             geom = await falcorGraph.get(['geo',fips_value,'boundingBox','value'])
             geoFips = await falcorGraph.get(['geo',fips_value,['state_abbr']])
         }
+        else{
+            geoFips = await falcorGraph.get(['geo',config.fips,['state_abbr']])
+        }
         if(geography === 'counties' ){
 
             geoNames = await falcorGraph.get(['geo',filtered_geographies,['name']])
