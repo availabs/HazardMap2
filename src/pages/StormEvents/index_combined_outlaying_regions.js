@@ -14,12 +14,15 @@ import StackedBarGraph from "../components/bar/stackedBarGraph";
 import SlideOver from "./components/SlideOver";
 import HazardListTable from "../components/listTable/hazardListTable";
 import MapsLayerFactory from "./MapsLayer";
+
+import MapsLayer_outlaying_regions from "./MapsLayer_outlaying_regions";
 import AvlMap from "../../components/AvlMap";
 import {TopNav, useTheme, Loading} from '@availabs/avl-components'
 
 
 class NationalLanding extends React.Component {
-    MapsLayer = MapsLayerFactory({active: true});
+    //MapsLayer = MapsLayerFactory({active: true}); // for original map
+    MapsLayer = MapsLayer_outlaying_regions({active:true})
 
     constructor(props) {
         super(props);
@@ -158,9 +161,9 @@ class NationalLanding extends React.Component {
                     <div className='h-full'>
                         <div className="mx-auto h-8 w-2/6 pt-11 z-40">
                             <Legend
-                                title = {`Losses in each ${this.props.match.params.datatype === 'sba' || this.props.match.params.datatype === 'fema' ?
+                                title = {`Losses in each ${this.props.match.params.datatype === 'sba' || this.props.match.params.datatype === 'fema' ? 
                                     this.state.geography_sba.reduce((a,c) => c.value === this.state.geography_filter ? c.name : a,null)
-                                    :
+                                :
                                     this.state.geography_storm.reduce((a,c) => c.value === this.state.geography_filter ? c.name : a,null)
                                 } from ${config['Hazards'].filter(d => d.value === this.state.hazard)[0].name}, ${this.state.year.replace('allTime', '1996-2019')}`}
                                 type = {"threshold"}
@@ -174,8 +177,9 @@ class NationalLanding extends React.Component {
                                 this.MapsLayer
                             ]}
                             height={'90%'}
-                            center={[0, 0]}
-                            zoom={4}
+                            //center={[0, 0]} // for original map
+                            center={ [-90.5795,38.8283] }
+                            zoom={2} // 4 for original page
                             year={2018}
                             fips={''}
                             styles={[
@@ -247,12 +251,12 @@ class NationalLanding extends React.Component {
                                     }}
                                 >
                                     { this.props.match.params.datatype === "sba" || this.props.match.params.datatype === "fema"? this.state.geography_sba.map((d,i) =>{
-                                            return(
-                                                <option value={d.value} key={i}>
-                                                    {d.name}
-                                                </option>
-                                            )
-                                        }):
+                                        return(
+                                            <option value={d.value} key={i}>
+                                                {d.name}
+                                            </option>
+                                        )
+                                    }):
                                         this.state.geography_storm.map((d,i) =>{
                                             return(
                                                 <option value={d.value} key={i}>
@@ -352,3 +356,4 @@ export default [
 
 
 ]
+
