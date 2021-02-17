@@ -22,8 +22,8 @@ import {
 
 import reportWebVitals from './reportWebVitals';
 
-import DmsComponents from "components/dms"
-import DmsWrappers from "components/dms/wrappers"
+import DmsComponents from "@availabs/avl-components"
+import DmsWrappers from "@availabs/avl-components"
 
 import {
   Components as AmsComponents,

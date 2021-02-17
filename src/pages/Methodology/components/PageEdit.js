@@ -4,7 +4,7 @@ import { useTheme } from "@availabs/avl-components"
 // import { List, ListItemAction, Input } from 'components/avl-components/components'
 // import { Link } from 'react-router-dom'
 
-import { DmsButton } from "components/dms/components/dms-button"
+import { DmsButton } from "@availabs/avl-components"
 
 export const Create = ({ createState, setValues, item, ...props }) => {
     const theme = useTheme();

@@ -9,8 +9,8 @@ import {
     addWrappers
 } from "@availabs/avl-components"
 import viewConfig from './view'
-import DmsComponents from "components/dms"
-import DmsWrappers from "components/dms/wrappers"
+import DmsComponents from "@availabs/avl-components"
+import DmsWrappers from "@availabs/avl-components"
 //import {shmp} from 'pages/components/shmp-theme.js'
 
 
