@@ -228,7 +228,7 @@ class NationalLanding extends React.Component {
                                 }}
                             >
                                 <option value={null}>National</option>
-                                {this.processFipsDomain() ? this.processFipsDomain().map((d,i) =>{
+                                {this.processFipsDomain() ? this.processFipsDomain().sort((a,b) => a.name.localeCompare(b.name)).map((d,i) =>{
                                     return(
                                         <option value={d.fips} key={i}>
                                             {d.name}
