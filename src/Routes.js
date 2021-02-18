@@ -5,7 +5,7 @@ import Overview from './pages/Overview/index'
 import NoMatch from "pages/404"
 import StormEvents from 'pages/StormEvents/index_combined'
 import StormEventsOutlying from 'pages/StormEvents/index_combined_outlaying_regions'
-import Methodology from 'pages/Methodology/methodology'
+import Methodology from 'pages/Methodology/view'
 import FemaDisasters from 'pages/fema_disasters/index'
 import FemaDisasterDeclarations from 'pages/fema_disasters/components/femaDisasterDeclarations'
 import CMS from 'pages/CMS/edit'

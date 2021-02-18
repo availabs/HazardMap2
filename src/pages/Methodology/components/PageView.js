@@ -1,49 +1,60 @@
 import React  from "react"
-import { useTheme } from "@availabs/avl-components"
+// import { useTheme } from "components/avl-components/wrappers/with-theme"
+import DocsWrapper from './DocsWrapper'
 
-import { SideNav } from '@availabs/avl-components'
+import SideNav from './SideNav'
 
-import ReadOnlyEditor from "@availabs/avl-components"
+import ReadOnlyEditor from "components/dms/components/editor/editor.read-only"
+
+import get from "lodash.get";
 
 const View = ({ item, dataItems, ...props }) => {
-    const theme = useTheme;
-    console.log('view', item,dataItems, props)
+    // const theme = useTheme();
 
-    if (item ) {
-        item = dataItems[0]
-    }
-    if(!item || !item.data ) return null
+    const data = get(item, "data");
+    if (!data) return <div>Loading Data...</div>
 
-    const { data } = item
+    console.log('item', item)
+    console.log('dataItems', dataItems)
+    console.log(' the data ', data)
 
     let navItems = dataItems
         .filter(d => d.data.sectionLanding)
+        .sort((a, b) => +a.data.index - +b.data.index)
         .map((d,i) => {
             return {
                 name: d.data.section,
-                path: `/docs/view/${d.id}`,
+                // path: `/docs/view/${d.id}`,
+                item: d,
                 sectionClass: 'mb-4',
                 itemClass: 'font-bold',
+                itemStyle: {fontWeight: 700, textTransform: 'uppercase'},
                 children: dataItems
                     .filter(({ data }) => !data.sectionLanding && (data.section === d.data.section))
-                    .map(p => ({name: p.data.title, path: `/docs/view/${p.id}`, itemClass: 'font-thin -mt-2'}))
+                    .sort((a, b) => +a.data.index - +b.data.index)
+                    .map(p => ({name: p.data.title, path: `/docs/view/${p.id}`, item: p, itemsStyle: {paddingLeft: 10, fontWeight: 100}}))
             }
         })
 
     return (
-        <div className={ `max-w-7xl mx-auto flex items-start`}>
-            <div className='w-60 border-2 overflow-hidden'>
-                <SideNav menuItems={navItems} />
-            </div>
-            <div className="w-full flex flex-col justify-center hasValue h-min-screen pl-4">
-                <div className={`px-2 pt-2 pb-6 text-3xl font-bold leading-7 ${theme.text}`}>
-                    {data.title}
+        <DocsWrapper >
+            <div className='w-full mt-3 flex' >
+                <div className='sticky top-0' style={{width: '13rem'}}>
+                    <SideNav menuItems={navItems} />
                 </div>
-                <div className={'p-2 pb-6 font-thin'}>
-                    <ReadOnlyEditor value={data.content} />
+                <div className='flex flex-1'>
+                    <div className={'font-thin'} style={{
+                        backgroundColor:'#fefefe',
+                        padding: "35px",
+                        boxShadow: '0 0 30px 6px rgba(31,51,73,.1)',
+                        borderRadius: "4px",
+                        width:'100%'
+                    }}>
+                        <ReadOnlyEditor key={ item.id } value={ data.content }/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </DocsWrapper>
     )
 }
 

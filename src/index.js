@@ -41,9 +41,6 @@ addWrappers(AmsWrappers);
 const AuthEnabledApp = enableAuth(App, { AUTH_HOST, PROJECT_NAME, CLIENT_HOST });
 
 
-
-
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
