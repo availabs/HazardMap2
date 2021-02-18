@@ -14,16 +14,15 @@ import store from 'store';
 import {
   //Themes,
   ThemeContext,
-  // FalcorProvider,
-  // falcorGraph,
+  FalcorProvider as FalcorProviderNew,
+  falcorGraph as falcorGraphNew,
   addComponents,
   addWrappers
 } from "@availabs/avl-components"
 
 import reportWebVitals from './reportWebVitals';
 
-import DmsComponents from "components/dms"
-import DmsWrappers from "components/dms/wrappers"
+
 
 import {
   Components as AmsComponents,
@@ -34,27 +33,31 @@ import {
 import 'styles/tailwind.css';
 import Theme from './Theme'
 
-addComponents(DmsComponents);
-addWrappers(DmsWrappers);
+
 
 addComponents(AmsComponents);
 addWrappers(AmsWrappers);
 
 const AuthEnabledApp = enableAuth(App, { AUTH_HOST, PROJECT_NAME, CLIENT_HOST });
 
+
+
+
+
 ReactDOM.render(
   <React.StrictMode>
-   	<Provider store={ store }>
-  		<FalcorProvider falcor={ falcorGraph }>
-        <ThemeContext.Provider value={ Theme }>
-  	    	<AuthEnabledApp />
-        </ThemeContext.Provider>
+    <Provider store={store}>
+      <FalcorProvider store={store} falcor={falcorGraph}>
+        <FalcorProviderNew falcor={ falcorGraphNew(API_HOST) }>
+          <ThemeContext.Provider value={ Theme }>
+             <AuthEnabledApp />
+          </ThemeContext.Provider>
+        </FalcorProviderNew>
       </FalcorProvider>
-  	</Provider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
-);
-
+)
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

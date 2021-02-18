@@ -3,13 +3,13 @@ import { useTheme } from "@availabs/avl-components"
 
 import { SideNav } from '@availabs/avl-components'
 
-import ReadOnlyEditor from "components/dms/components/editor/editor.read-only"
+import ReadOnlyEditor from "@availabs/avl-components"
 
 const View = ({ item, dataItems, ...props }) => {
     const theme = useTheme;
     console.log('view', item,dataItems, props)
 
-    if (!item ) {
+    if (item ) {
         item = dataItems[0]
     }
     if(!item || !item.data ) return null

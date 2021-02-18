@@ -3,19 +3,28 @@ import {ctpDoc} from './docs.type'
 import SectionManager from './components/SectionManager'
 import PageEdit from './components/PageEdit'
 import PageView from './components/PageView'
-import {ComponentFactory} from '@availabs/avl-components'
-import {
-    addComponents,
-    addWrappers
-} from "@availabs/avl-components"
+
 import viewConfig from './view'
+
 import DmsComponents from "components/dms"
 import DmsWrappers from "components/dms/wrappers"
+import { API_HOST } from 'config'
 
+// import ComponentFactory from 'components/avl-components/ComponentFactory'
+// import {
+//   addComponents,
+//   addWrappers
+// } from "components/avl-components/ComponentFactory"
 
+import {
+  ComponentFactory,
+  addComponents,
+  addWrappers
+} from "@availabs/avl-components"
 
 addComponents(DmsComponents)
 addWrappers(DmsWrappers)
+
 
 let editorConfig = {
     type: "dms-content",
@@ -70,14 +79,14 @@ let editorConfig = {
 
 const Documentation = (props) => (
     <div className='mt-20'>
-        <h4> NPMRDS Documentation </h4>
+        <h4> Methodology </h4>
         <ComponentFactory config={ viewConfig }/>
     </div>
 )
 
 const DocsEditor= (props) => (
     <div className='mt-20'>
-        <h4> NPMRDS Documentation </h4>
+        <h4> Methodology Editor </h4>
         <ComponentFactory config={ editorConfig }/>
     </div>
 )

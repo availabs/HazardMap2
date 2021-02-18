@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom'
 
 import { List, ListItemAction, Input } from '@availabs/avl-components'
 
-import { DmsButton } from "components/dms/components/dms-button"
+import { DmsButton } from "@availabs/avl-components"
 
-import { makeFilter } from "components/dms/utils"
+import { makeFilter } from "@availabs/avl-components"
 
 // import ReadOnlyEditor from "components/DMS/components/editor/editor.read-only"
 
 const DmsTable = ({ sortBy, sortOrder, columns, initialPageSize, Container, ...props }) => {
     const [newSectionTitle, setNewSectionTitle] = useState('');
 
+    console.log('props', props)
     const filter = makeFilter(props),
         dataItems = (filter ? props.dataItems.filter(filter) : props.dataItems);
 
