@@ -221,41 +221,6 @@ class Rankings extends React.Component {
         let femaData = this.processFemaDisasterData()
 
         return(
-<<<<<<< HEAD
-            <div className='max-w-7xl mx-auto'>
-                <div className='w-full'>
-                    <select
-                        className="rounded-lg py-3 px-3 border-2 border-gray-200 w-full bg-white"
-                        onChange={(e) =>{
-                            let hazard = e.target.value
-                            this.setState({
-                                hazard: hazard === 'All Hazards' ? null : hazard
-                            })
-                        }}
-                    >
-                        <option value={null}>All Hazards</option>
-                        {config.Hazards.map((d,i) =>{
-                            return(
-                                <option value={d.value} key={i}>
-                                    {d.name}
-                                </option>
-                            )
-                        })}
-                    </select>
-                    {severeWeatherData && severeWeatherData.length > 0 ?
-                        <div>
-                            <h4>SevereWeather Data Loss By County</h4>
-                            <Table
-                                defaultPageSize={100}
-                                showPagination={true}
-                                columns={severeWeatherTableCols}
-                                data={severeWeatherData}
-                                initialPageSize={100}
-                                minRows={severeWeatherData.length}
-                                sortOrder={'desc'}
-                            />
-                        </div>
-=======
             <div>
                 <select
                     className="rounded-lg py-3 px-3 border-2 border-gray-200 my-5 w-64 bg-white"
@@ -308,33 +273,12 @@ class Rankings extends React.Component {
                             minRows={femaData.length}
                             sortOrder={'desc'}
                         />
->>>>>>> 0a91e69e7b5bea957d22e109f4484cb22b3a0995
                         :
                         <div>
                             Loading ....
                         </div>
-                    }
-                    {
-                        femaData && femaData.length > 0 ?
-                            <div>
-                                <h4>Fema Disaster Spending By County</h4>
-                                <Table
-                                    defaultPageSize={100}
-                                    showPagination={true}
-                                    columns={femaTableCols}
-                                    data={femaData}
-                                    initialPageSize={100}
-                                    minRows={femaData.length}
-                                    sortOrder={'desc'}
-                                />
-                            </div>
-                            :
-                            <div>
-                                Loading ....
-                            </div>
 
-                    }
-                </div>
+                }
             </div>
         )
     }
