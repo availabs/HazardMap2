@@ -146,8 +146,6 @@ const DocsEditor= (props) => (
 )
 
 export default [{
-  icon: 'fa-id-card',
-  class: "fa",
   path: '/methodology',
   exact: false,
   mainNav: true,
@@ -158,13 +156,11 @@ export default [{
     layout: 'menu-layout-compact',
     style: 'color-style-default'
   },
-  name: 'Documentation',
+  name: 'Methodology',
   authLevel: 0,
   component: Documentation
 },
   {
-    icon: 'fa-file-text',
-    class: "fa",
     path: '/docs',
     exact: false,
     mainNav: false,
