@@ -1,6 +1,15 @@
 import os, psycopg2
 from os import environ
 
+'''
+                  SW      ACTUAL 
+American Samoa    97      60
+GUAM              98      66
+Virgin Islands    96      78
+Puerto Rico       99      72 
+
+
+'''
 
 def get_state_fips_code(cursor):
     print('IN GET STATE FIPS...')
@@ -37,7 +46,7 @@ def check_for_county_fips(cursor):
         SET geoid = LPAD(state_fips::TEXT, 2, '0') || LPAD(cz_fips::TEXT, 3, '0')
         WHERE geoid IS NULL
         AND state_fips = """ + fip["fips"] + """
-        AND cz_type not in ('Z')
+        AND cz_type IN ('C')
         """
         cursor.execute(sql)
     print('POPULATING GEOID IN SEVERE WEATHER TABLE WITH COUNTY GEOIDS WHERE CZ_TYPE IS NOT Z DONE')
@@ -54,6 +63,29 @@ def check_for_weather_zone(cursor):
     """
     cursor.execute(sql)
     print('POPULATING GEOID IN SEVERE WEATHER TABLE WITH COUNTY GEOIDS WHERE CZ_TYPE IS Z DONE')
+
+'''
+rows where they are outlying areas but the state fips are incorrect in Storm events 
+'''
+def check_for_weather_zone_outlying_areas(cursor):
+    print('POPULATING OUTLYING AREAS GEOID IN SEVERE WEATHER TABLE WITH COUNTY GEOIDS WHERE CZ_TYPE IS C OR  Z ...')
+
+    sql = """
+        UPDATE severe_weather.details as a
+        SET geoid = (
+			
+					CASE 
+						WHEN state_fips = '97' THEN LPAD(60::TEXT, 2, '0') || LPAD(cz_fips::TEXT, 3, '0')
+						WHEN state_fips = '98' THEN LPAD(66::TEXT, 2, '0') || LPAD(cz_fips::TEXT, 3, '0')
+						WHEN state_fips = '96' THEN LPAD(78::TEXT, 2, '0') || LPAD(cz_fips::TEXT, 3, '0')
+						WHEN state_fips = '99' THEN LPAD(72::TEXT, 2, '0') || LPAD(cz_fips::TEXT, 3, '0')
+					END 
+					)
+        WHERE geoid is null 
+        and cz_type IN ('C','Z')
+    """
+    cursor.execute(sql)
+    print('POPULATING OUTLYING AREAS GEOID IN SEVERE WEATHER TABLE WITH COUNTY GEOIDS WHERE CZ_TYPE IS C OR  Z DONE')
 
 def add_cousubs(cursor):
     print('POPULATING GEOID IN SEVERE WEATHER TABLE WITH COUSUBS ...')
@@ -124,8 +156,10 @@ def main():
     check_for_state_fips(cursor)
     check_for_county_fips(cursor)
     check_for_weather_zone(cursor)
+    check_for_weather_zone_outlying_areas(cursor)
     add_cousubs(cursor)
     add_tracts(cursor)
+
 
     conn.commit()
     cursor.close()
