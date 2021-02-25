@@ -48,10 +48,9 @@ def check_for_weather_zone(cursor):
         UPDATE severe_weather.details as a
         SET geoid = b.fips
         FROM severe_weather.zone_to_county as b 
-        WHERE lower(a.cz_name) = lower(b.name)
+        WHERE lower(a.cz_name) = lower(b.county)
         AND geoid  is null 
-        and cz_type = 'Z'
-    
+        and cz_type IN ('C','Z')
     """
     cursor.execute(sql)
     print('POPULATING GEOID IN SEVERE WEATHER TABLE WITH COUNTY GEOIDS WHERE CZ_TYPE IS Z DONE')
