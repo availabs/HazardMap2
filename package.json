@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@availabs/ams": "^1.0.5",
-    "@availabs/avl-components": "^1.0.26",
+    "@availabs/avl-components": "^1.0.22",
     "@draft-js-plugins/editor": "^4.0.0",
     "@mapbox/geojson-extent": "^0.3.2",
     "@nivo/bar": "^0.67.0",
