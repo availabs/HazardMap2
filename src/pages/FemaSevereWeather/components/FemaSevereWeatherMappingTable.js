@@ -46,11 +46,18 @@ const femaSevereWeatherTable = (props) => {
                 disableFilters: true,
 
             },
+
             {
                 Header: (<div># Severe weather Mappings</div>),
                 accessor: 'num_events_in_swd',
                 disableFilters: true,
-            }
+            },
+            {
+                Header: (<div>Fema County</div>),
+                accessor: 'fema_county_geoid',
+                disableFilters: true,
+
+            },
         ]
 
     let data = []
@@ -60,7 +67,8 @@ const femaSevereWeatherTable = (props) => {
             a.push({
                 'disaster_number' : c['fema_disaster_number'] || '',
                 'fema_declaration_title': c['fema_declaration_title'] || '',
-                'num_events_in_swd': c['num_events_in_swd'] || 0
+                'num_events_in_swd': c['num_events_in_swd'] || 0,
+                'fema_county_geoid': c['fema_county_code'] || ''
 
             })
             return a
