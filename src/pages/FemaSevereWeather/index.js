@@ -1,9 +1,10 @@
 import React  from "react"
-import FemaSevereWeatherMappingTable from './components/FemaSevereWeatherMappingTable'
+import FemaSevereWeatherMapping from './components/FemaSevereWeatherMappingTable'
 
-const Home = ({children}) =>{
+const Home = ({children,...ref}) =>{
+
     return (
-        <FemaSevereWeatherMappingTable/>
+        <FemaSevereWeatherMapping/>
     )
 }
 
