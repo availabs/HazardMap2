@@ -15,5 +15,9 @@ export default {
     name: 'FEMA Severe Weather Mapping',
     auth: false,
     component: Home,
-    layout: 'Simple'
+    layoutSettings: {
+        fixed: true,
+        headerBar: false,
+        nav: 'top',
+    }
 }

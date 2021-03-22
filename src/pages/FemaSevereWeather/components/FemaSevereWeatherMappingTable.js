@@ -15,7 +15,7 @@ const FemaSevereWeatherMapping =  React.forwardRef((props,ref) =>{
 
         const [columns,data] = femaSevereWeatherTable(props)
         return (
-            <div>
+
                 <Table
                     defaultPageSize={20}
                     showPagination={true}
@@ -26,7 +26,7 @@ const FemaSevereWeatherMapping =  React.forwardRef((props,ref) =>{
                     sortBy={'num_events_in_swd'}
                     sortOrder={'desc'}
                 />
-            </div>
+
 
         )
 })

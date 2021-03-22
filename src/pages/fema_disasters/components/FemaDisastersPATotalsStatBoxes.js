@@ -57,7 +57,7 @@ class FemaDisastersPATotalsStatBoxes extends React.Component{
                 {stat_boxes.map((stat_box,i) =>{
                     return(
                         <div className="bg-white overflow-hidden shadow rounded-lg cursor-pointer" key={i}  onClick={(e) =>{
-                            console.log('e',stat_box.value)
+
                             this.props.setActiveAmount(stat_box.value)
                         }}>
                             <div className="px-4 py-5 sm:p-6">
